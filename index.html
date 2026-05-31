@@ -125,11 +125,15 @@
       font-family:'Orbitron',sans-serif;
       font-size:clamp(.85rem,3.5vw,1.5rem);
       font-weight:900;letter-spacing:.07em;
-      background:linear-gradient(90deg,var(--pink),#ff9cf4,var(--cyan),var(--purple),var(--pink));
-      background-size:300%;
+      background:linear-gradient(90deg,
+        #ff0000,#ff7700,#ffdd00,#00ff88,#00ccff,#aa00ff,#ff0088,
+        #ff0000,#ff7700,#ffdd00,#00ff88,#00ccff,#aa00ff,#ff0088);
+      background-size:400%;
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      animation:shimmer 3s linear infinite;
+      animation:rainbow 3.5s linear infinite;
+      filter:drop-shadow(0 0 8px rgba(255,100,200,.5));
     }
+    @keyframes rainbow{0%{background-position:0% center}100%{background-position:400% center}}
     @keyframes shimmer{to{background-position:300% center}}
     .p2-banner-sub{
       font-family:'Dancing Script',cursive;
@@ -174,7 +178,7 @@
     /* photo bg */
     .kiss-bg{
       position:absolute;inset:0;
-      background-image:url('kiss.jpg');
+      background-image:url('assets/images/kiss.jpg');
       background-size:cover;background-position:center 35%;
       filter:brightness(.5) contrast(1.2) grayscale(.1) saturate(1.2);
     }
