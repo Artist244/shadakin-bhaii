@@ -14,304 +14,330 @@
     }
     html,body{width:100%;height:100%;background:var(--dark);font-family:'Rajdhani',sans-serif;overflow:hidden}
 
-    /* ── shared bg layers ── */
+    /* shared bg */
     #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
-    .grid{
-      position:fixed;inset:0;z-index:1;pointer-events:none;
-      background:linear-gradient(rgba(180,0,255,.045) 1px,transparent 1px),
-                 linear-gradient(90deg,rgba(180,0,255,.045) 1px,transparent 1px);
-      background-size:44px 44px;
-    }
+    .grid{position:fixed;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(rgba(180,0,255,.04) 1px,transparent 1px),
+                 linear-gradient(90deg,rgba(180,0,255,.04) 1px,transparent 1px);
+      background-size:44px 44px}
     .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;
-      background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.65) 100%)}
+      background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.7) 100%)}
     .scanlines{position:fixed;inset:0;z-index:2;pointer-events:none;
       background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px)}
     #floaters{position:fixed;inset:0;pointer-events:none;z-index:3}
 
-    /* ── pages ── */
-    .page{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .55s,transform .55s}
-    .page.hidden{opacity:0;pointer-events:none;transform:scale(.94)}
+    /* pages */
+    .page{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      transition:opacity .55s,transform .55s}
+    .page.hidden{opacity:0;pointer-events:none;transform:scale(.93)}
     .page.visible{opacity:1;pointer-events:all;transform:scale(1)}
 
-    /* ══════════════════════════════
-       PAGE 1
-    ══════════════════════════════ */
+    /* ══════════ PAGE 1 ══════════ */
     #page1{z-index:10}
 
     .card{
       position:relative;z-index:10;
-      background:linear-gradient(160deg,#16162a,#0e0e1c);
+      background:linear-gradient(150deg,#16162a 0%,#0e0e1c 100%);
       border:1px solid rgba(180,0,255,.4);
       border-radius:30px;
-      padding:52px 46px 44px;
-      max-width:520px;width:92vw;
+      padding:52px 44px 44px;
+      max-width:500px;width:92vw;
       text-align:center;
-      box-shadow:0 0 60px rgba(180,0,255,.2),0 0 120px rgba(255,45,120,.08),
+      box-shadow:0 0 60px rgba(180,0,255,.2),0 0 120px rgba(255,45,120,.07),
                  inset 0 1px 0 rgba(255,255,255,.07);
       animation:cardIn .9s cubic-bezier(.22,1,.36,1) both;
     }
     @keyframes cardIn{from{opacity:0;transform:translateY(55px) scale(.93)}to{opacity:1;transform:none}}
 
-    /* corner brackets */
-    .card::before,.card::after{content:'';position:absolute;width:24px;height:24px;border-color:var(--pink);border-style:solid}
-    .card::before{top:-1px;left:-1px;border-width:2px 0 0 2px;border-radius:10px 0 0 0}
-    .card::after {bottom:-1px;right:-1px;border-width:0 2px 2px 0;border-radius:0 0 10px 0}
-    /* extra cyan corners */
-    .card .c2,.card .c3{content:'';position:absolute;width:24px;height:24px;border-color:var(--cyan);border-style:solid;display:block}
-    .card .c2{top:-1px;right:-1px;border-width:2px 2px 0 0;border-radius:0 10px 0 0}
-    .card .c3{bottom:-1px;left:-1px;border-width:0 0 2px 2px;border-radius:0 0 0 10px}
+    /* 4-corner brackets */
+    .card .br{position:absolute;width:22px;height:22px;border-style:solid}
+    .card .br.tl{top:-1px;left:-1px;border-color:var(--pink);border-width:2px 0 0 2px;border-radius:9px 0 0 0}
+    .card .br.tr{top:-1px;right:-1px;border-color:var(--cyan);border-width:2px 2px 0 0;border-radius:0 9px 0 0}
+    .card .br.bl{bottom:-1px;left:-1px;border-color:var(--cyan);border-width:0 0 2px 2px;border-radius:0 0 0 9px}
+    .card .br.br2{bottom:-1px;right:-1px;border-color:var(--pink);border-width:0 2px 2px 0;border-radius:0 0 9px 0}
 
-    /* orbit rings */
-    .hearts-ring{position:relative;width:140px;height:140px;margin:0 auto 28px}
+    /* orbit ring */
+    .hearts-ring{position:relative;width:140px;height:140px;margin:0 auto 26px}
     .center-heart{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
       font-size:56px;filter:drop-shadow(0 0 18px var(--pink));animation:hb 1.4s ease-in-out infinite}
-    @keyframes hb{0%,100%{transform:scale(1)}14%{transform:scale(1.24)}28%{transform:scale(1)}42%{transform:scale(1.15)}}
-    .orbit1{position:absolute;inset:0;animation:spin 5s linear infinite}
-    .orbit1 span{position:absolute;font-size:19px;top:50%;left:50%;transform-origin:0 0}
-    .orbit2{position:absolute;inset:0;animation:spin 9s linear infinite reverse}
-    .orbit2 span{position:absolute;font-size:13px;top:50%;left:50%;transform-origin:0 0}
+    @keyframes hb{0%,100%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}42%{transform:scale(1.15)}}
+    .orb{position:absolute;inset:0}
+    .orb.o1{animation:spin 5s linear infinite}
+    .orb.o2{animation:spin 9s linear infinite reverse}
+    .orb span{position:absolute;top:50%;left:50%;transform-origin:0 0}
+    .orb.o1 span{font-size:19px}
+    .orb.o2 span{font-size:13px}
     @keyframes spin{to{transform:rotate(360deg)}}
 
     /* title */
-    .title{
+    .p1title{
       font-family:'Orbitron',sans-serif;
       font-size:clamp(1.2rem,4.5vw,1.65rem);
       font-weight:900;letter-spacing:.14em;color:#fff;
       text-shadow:0 0 28px rgba(180,0,255,.8),0 0 8px rgba(255,45,120,.4);
-      margin-bottom:6px;
-      position:relative;
+      margin-bottom:6px;position:relative;
     }
-    /* glitch pseudo */
-    .title::before,.title::after{content:attr(data-t);position:absolute;top:0;left:0;width:100%;
-      font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit}
-    .title::before{color:var(--cyan);clip-path:inset(0 0 55% 0);animation:g1 4s infinite}
-    .title::after {color:var(--pink);clip-path:inset(55% 0 0 0);animation:g2 4s infinite}
-    @keyframes g1{0%,93%,100%{transform:none;opacity:0}95%{transform:translate(-3px,-1px);opacity:.5}97%{transform:translate(2px,1px);opacity:.5}}
-    @keyframes g2{0%,93%,100%{transform:none;opacity:0}96%{transform:translate(3px,-1px);opacity:.5}98%{transform:translate(-2px,1px);opacity:.5}}
+    .p1title::before,.p1title::after{content:attr(data-t);position:absolute;top:0;left:0;width:100%;
+      font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;pointer-events:none}
+    .p1title::before{color:var(--cyan);clip-path:inset(0 0 55% 0);animation:gl1 4s infinite}
+    .p1title::after{color:var(--pink);clip-path:inset(55% 0 0 0);animation:gl2 4s infinite}
+    @keyframes gl1{0%,93%,100%{transform:none;opacity:0}95%{transform:translate(-3px,-1px);opacity:.5}97%{transform:translate(2px,1px);opacity:.5}}
+    @keyframes gl2{0%,93%,100%{transform:none;opacity:0}96%{transform:translate(3px,-1px);opacity:.5}98%{transform:translate(-2px,1px);opacity:.5}}
 
-    .subtitle{font-size:.87rem;color:rgba(255,255,255,.3);letter-spacing:.07em;margin-bottom:14px}
+    .p1sub{font-size:.87rem;color:rgba(255,255,255,.3);letter-spacing:.07em;margin-bottom:12px}
+    .divider{width:75%;height:1px;background:linear-gradient(90deg,transparent,var(--purple),var(--pink),var(--cyan),transparent);margin:0 auto 34px;opacity:.5}
 
-    .divider{width:75%;height:1px;background:linear-gradient(90deg,transparent,var(--purple),var(--pink),var(--cyan),transparent);margin:0 auto 36px;opacity:.5}
-
-    /* big btn */
+    /* buttons */
     .btn{
       position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:16px 46px;
-      font-family:'Orbitron',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.1em;
+      padding:15px 44px;
+      font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.1em;
       color:#fff;background:linear-gradient(135deg,var(--pink),var(--purple));
       border:none;border-radius:50px;cursor:pointer;overflow:hidden;
-      box-shadow:0 0 28px rgba(255,45,120,.55),0 0 60px rgba(180,0,255,.3);
+      box-shadow:0 0 28px rgba(255,45,120,.55),0 0 60px rgba(180,0,255,.28);
       transition:transform .15s,box-shadow .15s;user-select:none;
     }
-    .btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);border-radius:inherit}
-    .btn::after{content:'';position:absolute;top:-50%;left:-60%;width:60%;height:200%;background:rgba(255,255,255,.2);transform:skewX(-20deg) translateX(-100%);transition:transform .55s}
-    .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 0 46px rgba(255,45,120,.8),0 0 90px rgba(180,0,255,.5)}
+    .btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);border-radius:inherit;pointer-events:none}
+    .btn::after{content:'';position:absolute;top:-50%;left:-60%;width:60%;height:200%;background:rgba(255,255,255,.2);transform:skewX(-20deg) translateX(-100%);transition:transform .55s;pointer-events:none}
+    .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 0 44px rgba(255,45,120,.8),0 0 90px rgba(180,0,255,.5)}
     .btn:hover::after{transform:skewX(-20deg) translateX(320%)}
     .btn:active{transform:scale(.97)}
 
-    .btn-alt{
-      background:transparent;border:2px solid var(--cyan);color:var(--cyan);
-      box-shadow:0 0 22px rgba(0,240,255,.3);margin-top:16px;
-    }
-    .btn-alt:hover{background:rgba(0,240,255,.08);box-shadow:0 0 44px rgba(0,240,255,.65);color:#fff}
+    .btn-cyan{background:transparent;border:2px solid var(--cyan);color:var(--cyan);
+      box-shadow:0 0 22px rgba(0,240,255,.3);}
+    .btn-cyan:hover{background:rgba(0,240,255,.08);box-shadow:0 0 44px rgba(0,240,255,.65);color:#fff;border-color:#fff}
 
-    .status-row{margin-top:30px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.77rem;color:rgba(255,255,255,.25);letter-spacing:.08em}
-    .dot{width:8px;height:8px;border-radius:50%;background:var(--pink);box-shadow:0 0 9px var(--pink);animation:blink 1.8s ease-in-out infinite}
+    .btn-gold{background:linear-gradient(135deg,#ff9900,#ffd700);color:#000;
+      box-shadow:0 0 28px rgba(255,200,0,.6),0 0 60px rgba(255,150,0,.3);}
+    .btn-gold:hover{box-shadow:0 0 50px rgba(255,200,0,.9),0 0 100px rgba(255,150,0,.5)}
+
+    .status-row{margin-top:28px;display:flex;align-items:center;justify-content:center;
+      gap:8px;font-size:.77rem;color:rgba(255,255,255,.24);letter-spacing:.08em}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--pink);
+      box-shadow:0 0 9px var(--pink);animation:blink 1.8s ease-in-out infinite}
     @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.6)}}
 
     /* ripple */
-    .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:scale(0);animation:rip .65s linear;pointer-events:none}
+    .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);
+      transform:scale(0);animation:rip .65s linear forwards;pointer-events:none}
     @keyframes rip{to{transform:scale(5);opacity:0}}
 
-    /* ══════════════════════════════
-       PAGE 2
-    ══════════════════════════════ */
-    #page2{z-index:20;flex-direction:column;background:var(--dark);overflow-y:auto;align-items:center;justify-content:flex-start;padding-top:60px;padding-bottom:30px}
+    /* ══════════ PAGE 2 ══════════ */
+    #page2{
+      z-index:20;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding:60px 0 30px;
+    }
 
     .back-btn{
-      position:fixed;top:16px;left:16px;
-      padding:8px 20px;font-family:'Orbitron',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;
+      position:fixed;top:14px;left:14px;
+      padding:8px 20px;font-family:'Orbitron',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.1em;
       color:rgba(255,255,255,.45);background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.15);border-radius:50px;cursor:pointer;transition:all .2s;z-index:100;
+      border:1px solid rgba(255,255,255,.14);border-radius:50px;cursor:pointer;
+      transition:all .2s;z-index:100;
     }
-    .back-btn:hover{color:#fff;background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.35)}
+    .back-btn:hover{color:#fff;background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.3)}
 
     .p2-inner{
       display:flex;flex-direction:column;align-items:center;
-      gap:clamp(10px,2.5vw,22px);
+      gap:20px;
       padding:0 16px 20px;
-      width:100%;max-width:720px;
+      width:100%;max-width:680px;
     }
 
     /* ── KISS SCENE ── */
     .kiss-scene{
       position:relative;
-      width:min(600px,94vw);
-      height:clamp(200px,30vw,280px);
+      width:min(580px,94vw);
+      height:clamp(210px,30vw,290px);
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid rgba(255,45,120,.35);
+      box-shadow:0 0 50px rgba(255,45,120,.25),0 0 100px rgba(180,0,255,.1);
       flex-shrink:0;
     }
 
-    .spotlight{
+    /* photo background */
+    .kiss-bg{
       position:absolute;inset:0;
-      background:radial-gradient(ellipse 55% 65% at 50% 85%,rgba(255,45,120,.2),rgba(180,0,255,.08) 55%,transparent);
-      animation:spPulse 2.2s ease-in-out infinite;
+      background-image:url('kiss.jpg');
+      background-size:cover;
+      background-position:center 35%;
+      filter:brightness(.55) contrast(1.15) grayscale(.15);
     }
-    @keyframes spPulse{0%,100%{opacity:1}50%{opacity:.45}}
+    /* fallback gradient shown if no image */
+    .kiss-bg::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 50% 60%,#3d0028 0%,#1a0018 40%,#07070e 100%);
+      z-index:-1;
+    }
 
-    /* SVG kissing animation wrapper */
-    .kiss-svg-wrap{
+    /* dark cinematic overlay on photo */
+    .kiss-overlay{
       position:absolute;inset:0;
-      display:flex;align-items:flex-end;justify-content:center;
-      padding-bottom:2%;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%,transparent 30%,rgba(7,7,14,.55) 100%),
+        linear-gradient(to bottom,rgba(7,7,14,.3) 0%,transparent 30%,transparent 70%,rgba(7,7,14,.5) 100%);
     }
-    .kiss-svg{
-      width:72%;max-width:400px;
-      filter:drop-shadow(0 0 28px rgba(255,45,120,.65));
+
+    /* spotlight glow */
+    .kiss-spotlight{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse 50% 55% at 50% 52%,rgba(255,45,120,.14),rgba(180,0,255,.06) 55%,transparent);
+      animation:spPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes spPulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+    /* SVG couple - centered on top of photo */
+    .svg-center{
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .couple-svg{
+      width:65%;
+      max-width:360px;
+      filter:drop-shadow(0 0 22px rgba(255,45,120,.6)) drop-shadow(0 0 8px rgba(180,0,255,.5));
       overflow:visible;
     }
 
-    /* ── faces lean in & kiss ──
-       Timeline: 0–30% lean in → 30–60% kissing → 60–70% pull back → 70–100% hold
-       Repeat 5s
-    */
-    #face-left {
-      animation:leanLeft 5s ease-in-out infinite;
-      transform-origin:right center;
-    }
-    #face-right{
-      animation:leanRight 5s ease-in-out infinite;
-      transform-origin:left center;
-    }
-    @keyframes leanLeft{
-      0%,5%   {transform:translateX(0) rotate(0deg)}
-      30%,65% {transform:translateX(18px) rotate(6deg)}
-      78%,100%{transform:translateX(0) rotate(0deg)}
-    }
-    @keyframes leanRight{
-      0%,5%   {transform:translateX(0) rotate(0deg)}
-      30%,65% {transform:translateX(-18px) rotate(-6deg)}
-      78%,100%{transform:translateX(0) rotate(0deg)}
-    }
-    /* lips meet: scale up during kiss */
-    #lips-mark{
-      animation:lipsKiss 5s ease-in-out infinite;
-      transform-origin:center center;
-    }
-    @keyframes lipsKiss{
-      0%,22%  {opacity:0;transform:scale(.2)}
-      32%,60% {opacity:1;transform:scale(1)}
-      72%,100%{opacity:0;transform:scale(.2)}
-    }
-    /* hearts that pop during kiss */
-    .kiss-heart{animation:kissHeart 5s ease-in-out infinite;opacity:0}
-    @keyframes kissHeart{
-      0%,30%  {opacity:0;transform:translateY(0) scale(.5)}
-      40%     {opacity:1;transform:translateY(-10px) scale(1)}
-      65%     {opacity:1;transform:translateY(-30px) scale(.8)}
-      75%,100%{opacity:0;transform:translateY(-50px) scale(.3)}
+    /* kiss animation: 0-30% lean in | 30-65% kissing | 65-80% pull back | 80-100% rest */
+    #fl{animation:leanL 5s ease-in-out infinite;transform-origin:140px 115px}
+    #fr{animation:leanR 5s ease-in-out infinite;transform-origin:260px 115px}
+    @keyframes leanL{0%,5%,80%,100%{transform:translateX(0) rotate(0deg)}30%,65%{transform:translateX(16px) rotate(5deg)}}
+    @keyframes leanR{0%,5%,80%,100%{transform:translateX(0) rotate(0deg)}30%,65%{transform:translateX(-16px) rotate(-5deg)}}
+
+    #kiss-mark{animation:kissAppear 5s ease-in-out infinite;transform-origin:200px 105px}
+    @keyframes kissAppear{0%,22%,75%,100%{opacity:0;transform:scale(.1)}30%,62%{opacity:1;transform:scale(1)}}
+
+    .kh{animation:kissHrt 5s ease-in-out infinite;opacity:0}
+    @keyframes kissHrt{
+      0%,28%{opacity:0;transform:translateY(0) scale(.5)}
+      38%{opacity:1;transform:translateY(-12px) scale(1.1)}
+      62%{opacity:.8;transform:translateY(-35px) scale(.75)}
+      72%,100%{opacity:0;transform:translateY(-55px) scale(.3)}
     }
 
     /* burst hearts orbit */
-    .heart-burst span{
-      position:absolute;font-size:clamp(.9rem,2.5vw,1.6rem);
-      top:45%;left:50%;
-      animation:hburst 3s ease-out infinite;opacity:0;
+    .hburst{position:absolute;inset:0;pointer-events:none}
+    .hburst span{
+      position:absolute;font-size:clamp(.8rem,2vw,1.4rem);
+      top:50%;left:50%;pointer-events:none;
+      animation:hbo 3s ease-out infinite;opacity:0;
     }
-    @keyframes hburst{
+    @keyframes hbo{
       0%  {transform:translate(-50%,-50%) scale(.3);opacity:0}
       12% {opacity:1}
       100%{transform:translate(var(--tx),var(--ty)) scale(.05);opacity:0}
     }
 
-    /* ── main reveal text ── */
-    .reveal-text-wrap{text-align:center;padding:0 10px}
-
+    /* ── reveal text ── */
+    .reveal-wrap{text-align:center;padding:0 8px}
     .reveal-big{
       font-family:'Orbitron',sans-serif;
-      font-size:clamp(1.1rem,4.5vw,2.1rem);
+      font-size:clamp(1rem,4.2vw,1.9rem);
       font-weight:900;letter-spacing:.06em;
       background:linear-gradient(90deg,var(--pink),#ff9cf4,var(--cyan),var(--purple),var(--pink));
       background-size:300%;
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       animation:shimmer 3s linear infinite;
-      margin-bottom:8px;
+      margin-bottom:6px;
     }
     @keyframes shimmer{to{background-position:300% center}}
-
-    .reveal-sub{
-      font-family:'Dancing Script',cursive;
-      font-size:clamp(.95rem,3vw,1.6rem);
-      color:rgba(255,255,255,.5);
-    }
+    .reveal-sub{font-family:'Dancing Script',cursive;font-size:clamp(.9rem,2.8vw,1.5rem);color:rgba(255,255,255,.48)}
 
     /* wave chars */
     .wc{display:inline-block;animation:wv .65s ease-in-out infinite}
     @keyframes wv{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
     /* ── name section ── */
-    .name-section{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:10px}
+    .name-section{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
 
-    .name-bubble{
+    /* speech bubble */
+    .bubble{
       display:none;
-      background:linear-gradient(140deg,#1e0038,#0b001c);
+      position:relative;
+      background:linear-gradient(140deg,#200038,#0c001e);
       border:1px solid var(--purple);
       border-radius:22px;
-      padding:20px 40px;
+      padding:18px 38px;
       font-family:'Dancing Script',cursive;
-      font-size:clamp(1.4rem,5.5vw,2.4rem);
+      font-size:clamp(1.3rem,5vw,2.2rem);
       color:var(--pink);
-      text-shadow:0 0 22px var(--pink),0 0 50px rgba(255,45,120,.4);
-      box-shadow:0 0 50px rgba(180,0,255,.45);
-      position:relative;overflow:hidden;
+      text-shadow:0 0 20px rgba(255,45,120,.6);
+      box-shadow:0 0 45px rgba(180,0,255,.4);
       text-align:center;
       animation:bubblePop .6s cubic-bezier(.34,1.56,.64,1) both;
     }
-    .name-bubble.show{display:block}
-    @keyframes bubblePop{from{opacity:0;transform:scale(.4) rotate(-6deg)}to{opacity:1;transform:none}}
-    .name-bubble::before{content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(255,255,255,.07),transparent);border-radius:inherit}
+    .bubble.show{display:block}
+    @keyframes bubblePop{from{opacity:0;transform:scale(.35) rotate(-5deg)}to{opacity:1;transform:none}}
+    .bubble::before{content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,.07),transparent);border-radius:inherit;pointer-events:none}
+    /* tail */
+    .bubble::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+      border:10px solid transparent;border-top-color:var(--purple);border-bottom:0}
 
-    /* ── BLAST overlay ── */
-    #blast{
-      position:fixed;inset:0;z-index:500;pointer-events:none;
-      display:flex;align-items:center;justify-content:center;
-      opacity:0;
+    /* mun reveal */
+    .mun-reveal{
+      display:none;
+      flex-direction:column;align-items:center;gap:8px;
+      animation:munIn .8s cubic-bezier(.34,1.56,.64,1) both;
     }
-    #blast.fire{animation:blastAnim .8s cubic-bezier(.22,1,.36,1) forwards}
-    @keyframes blastAnim{
-      0%  {opacity:0}
-      10% {opacity:1}
-      60% {opacity:1}
-      100%{opacity:0}
+    .mun-reveal.show{display:flex}
+    @keyframes munIn{from{opacity:0;transform:scale(.3) rotate(8deg)}to{opacity:1;transform:none}}
+
+    .mun-name{
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(2.5rem,12vw,5.5rem);
+      font-weight:700;
+      background:linear-gradient(135deg,var(--pink),#ff9cf4,var(--gold),var(--pink));
+      background-size:250%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      animation:shimmer 2s linear infinite,munFloat 2s ease-in-out infinite;
+      filter:drop-shadow(0 0 20px rgba(255,45,120,.7));
+      line-height:1;
     }
+    @keyframes munFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.04)}}
+
+    .mun-sub{font-family:'Dancing Script',cursive;font-size:clamp(.85rem,2.5vw,1.2rem);color:rgba(255,255,255,.45);letter-spacing:.05em}
+    .mun-hearts{font-size:1.4rem;animation:hb 1.2s ease-in-out infinite;letter-spacing:6px}
+
+    /* blast rings — fixed positioned, created by JS */
     .blast-ring{
-      position:absolute;
+      position:fixed;
       border-radius:50%;
-      border:4px solid var(--pink);
-      width:10px;height:10px;
-      animation:ringOut 1s ease-out forwards;
+      pointer-events:none;
+      z-index:800;
+      transform:translate(-50%,-50%) scale(1);
+      animation:ringOut .9s ease-out forwards;
     }
     @keyframes ringOut{
-      0%  {transform:scale(1);opacity:1;border-color:var(--pink)}
-      50% {border-color:var(--cyan)}
-      100%{transform:scale(60);opacity:0;border-color:var(--purple)}
+      0%  {transform:translate(-50%,-50%) scale(1);opacity:1}
+      100%{transform:translate(-50%,-50%) scale(55);opacity:0}
     }
-    .blast-ring2{animation-delay:.12s;border-color:var(--purple)}
-    .blast-ring3{animation-delay:.24s;border-color:var(--cyan)}
     .blast-flash{
-      position:absolute;inset:0;
-      background:radial-gradient(circle,rgba(255,255,255,.18),rgba(255,45,120,.08) 40%,transparent 70%);
-      animation:flashFade .6s ease-out forwards;
+      position:fixed;inset:0;pointer-events:none;z-index:790;
+      background:radial-gradient(circle at var(--bx) var(--by),rgba(255,255,255,.16),rgba(255,45,120,.07) 35%,transparent 65%);
+      animation:flashFade .5s ease-out forwards;
     }
     @keyframes flashFade{0%{opacity:1}100%{opacity:0}}
-
-    /* confetti */
-    .cp{position:fixed;width:9px;height:9px;pointer-events:none;z-index:600;animation:cpFall linear forwards;border-radius:1px}
-    @keyframes cpFall{0%{opacity:1;transform:translateY(0) rotate(0deg)}100%{opacity:0;transform:translateY(110vh) rotate(720deg)}}
-
-    /* emoji blaster */
-    .eb{position:fixed;pointer-events:none;z-index:600;font-size:clamp(1.2rem,4vw,2.4rem);animation:ebFly ease-out forwards}
-    @keyframes ebFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--ex),var(--ey)) scale(.2)}}
+    .blast-emoji{
+      position:fixed;pointer-events:none;z-index:810;
+      animation:emojiBlast ease-out forwards;
+    }
+    @keyframes emojiBlast{
+      0%  {opacity:1;transform:translate(-50%,-50%) scale(1)}
+      100%{opacity:0;transform:translate(calc(-50% + var(--ex)),calc(-50% + var(--ey))) scale(.15)}
+    }
+    .cp{
+      position:fixed;pointer-events:none;z-index:810;
+      width:8px;height:8px;
+      animation:cpFall linear forwards;
+    }
+    @keyframes cpFall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(108vh) rotate(700deg)}}
   </style>
 </head>
 <body>
@@ -322,30 +348,23 @@
 <div class="scanlines"></div>
 <div id="floaters"></div>
 
-<!-- blast overlay -->
-<div id="blast">
-  <div class="blast-ring"></div>
-  <div class="blast-ring blast-ring2"></div>
-  <div class="blast-ring blast-ring3"></div>
-  <div class="blast-flash"></div>
-</div>
-
-<!-- ══════════════
-     PAGE 1
-═══════════════ -->
+<!-- ══════════ PAGE 1 ══════════ -->
 <div id="page1" class="page visible">
   <div class="card">
-    <span class="c2"></span><span class="c3"></span>
+    <span class="br tl"></span>
+    <span class="br tr"></span>
+    <span class="br bl"></span>
+    <span class="br br2"></span>
 
     <div class="hearts-ring">
       <div class="center-heart">❤️</div>
-      <div class="orbit1">
+      <div class="orb o1">
         <span style="transform:rotate(0deg) translateY(-62px)">💜</span>
         <span style="transform:rotate(90deg) translateY(-62px)">💗</span>
         <span style="transform:rotate(180deg) translateY(-62px)">💙</span>
         <span style="transform:rotate(270deg) translateY(-62px)">💛</span>
       </div>
-      <div class="orbit2">
+      <div class="orb o2">
         <span style="transform:rotate(45deg) translateY(-48px)">✨</span>
         <span style="transform:rotate(135deg) translateY(-48px)">🌸</span>
         <span style="transform:rotate(225deg) translateY(-48px)">✨</span>
@@ -353,13 +372,11 @@
       </div>
     </div>
 
-    <div class="title" data-t="SHADIKIN BHAI">SHADIKIN BHAI</div>
-    <div class="subtitle">◈ RELATIONSHIP STATUS SYSTEM v2.0 ◈</div>
+    <div class="p1title" data-t="SHADIKIN BHAI">SHADIKIN BHAI</div>
+    <div class="p1sub">◈ RELATIONSHIP STATUS SYSTEM v2.0 ◈</div>
     <div class="divider"></div>
 
-    <button class="btn" id="btn-check" onclick="goPage2(event)">
-      ❤️ CHECK STATUS
-    </button>
+    <button class="btn" id="btnCheck" onclick="goPage2(event)">❤️ CHECK STATUS</button>
 
     <div class="status-row">
       <span class="dot"></span>
@@ -368,290 +385,345 @@
   </div>
 </div>
 
-<!-- ══════════════
-     PAGE 2
-═══════════════ -->
+<!-- ══════════ PAGE 2 ══════════ -->
 <div id="page2" class="page hidden">
   <button class="back-btn" onclick="goBack()">← BACK</button>
 
   <div class="p2-inner">
 
-    <!-- Kiss scene -->
+    <!-- KISS SCENE -->
     <div class="kiss-scene">
-      <div class="spotlight"></div>
+      <div class="kiss-bg"></div>
+      <div class="kiss-overlay"></div>
+      <div class="kiss-spotlight"></div>
 
-      <svg class="kiss-svg kiss-svg-wrap" viewBox="0 0 440 240" xmlns="http://www.w3.org/2000/svg" overflow="visible">
-        <defs>
-          <linearGradient id="gHim" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#ff2d78"/>
-            <stop offset="100%" stop-color="#b400ff"/>
-          </linearGradient>
-          <linearGradient id="gHer" x1="1" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#00f0ff"/>
-            <stop offset="100%" stop-color="#9400ff"/>
-          </linearGradient>
-          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="5" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
+      <!-- SVG couple centered over photo -->
+      <div class="svg-center">
+        <svg class="couple-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <defs>
+            <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ff2d78"/><stop offset="100%" stop-color="#c000ff"/>
+            </linearGradient>
+            <linearGradient id="gS" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#9400ff"/>
+            </linearGradient>
+            <filter id="gw" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="4" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
 
-        <!-- HIM (left) -->
-        <g id="face-left" filter="url(#glow)">
-          <!-- body / torso -->
-          <rect x="82" y="148" width="60" height="88" rx="16" fill="url(#gHim)" opacity=".92"/>
-          <ellipse cx="112" cy="234" rx="44" ry="16" fill="url(#gHim)" opacity=".7"/>
-          <!-- neck -->
-          <rect x="100" y="126" width="24" height="26" rx="8" fill="url(#gHim)" opacity=".9"/>
-          <!-- head -->
-          <circle cx="112" cy="106" r="34" fill="url(#gHim)" opacity=".95"/>
-          <!-- eye -->
-          <ellipse cx="103" cy="100" rx="5" ry="6" fill="#fff" opacity=".9"/>
-          <circle cx="105" cy="101" r="3" fill="#1a0020"/>
-          <!-- eyebrow -->
-          <path d="M97 92 Q103 88 110 91" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/>
-          <!-- ear -->
-          <ellipse cx="78" cy="108" rx="8" ry="11" fill="url(#gHim)" opacity=".85"/>
-          <!-- hair -->
-          <path d="M82 86 Q88 68 112 70 Q126 70 130 82" fill="url(#gHim)" opacity=".85"/>
-          <path d="M82 86 Q80 78 85 72" stroke="url(#gHim)" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
-          <!-- arm around her -->
-          <path d="M142 165 Q200 150 260 158" stroke="url(#gHim)" stroke-width="14" fill="none" stroke-linecap="round" opacity=".8"/>
-          <!-- hand -->
-          <circle cx="264" cy="160" r="9" fill="url(#gHim)" opacity=".8"/>
-        </g>
+          <!-- HIM (left) -->
+          <g id="fl" filter="url(#gw)">
+            <rect x="75" y="148" width="56" height="70" rx="14" fill="url(#gH)" opacity=".9"/>
+            <ellipse cx="103" cy="218" rx="40" ry="12" fill="url(#gH)" opacity=".6"/>
+            <rect x="93" y="128" width="20" height="24" rx="7" fill="url(#gH)" opacity=".88"/>
+            <circle cx="103" cy="112" r="30" fill="url(#gH)" opacity=".95"/>
+            <!-- hair -->
+            <path d="M76 96 Q80 74 103 72 Q122 73 126 90" fill="url(#gH)" opacity=".85"/>
+            <!-- ear -->
+            <ellipse cx="72" cy="114" rx="7" ry="10" fill="url(#gH)" opacity=".82"/>
+            <!-- eye -->
+            <ellipse cx="96" cy="108" rx="4.5" ry="5.5" fill="#fff" opacity=".92"/>
+            <circle cx="98" cy="109" r="2.8" fill="#0a0015"/>
+            <!-- brow -->
+            <path d="M90 101 Q96 97 103 100" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".65"/>
+            <!-- arm -->
+            <path d="M131 162 Q190 148 248 155" stroke="url(#gH)" stroke-width="13" fill="none" stroke-linecap="round" opacity=".82"/>
+            <circle cx="252" cy="157" r="8" fill="url(#gH)" opacity=".82"/>
+          </g>
 
-        <!-- HER (right) -->
-        <g id="face-right" filter="url(#glow)">
-          <!-- body / torso -->
-          <rect x="298" y="148" width="60" height="88" rx="16" fill="url(#gHer)" opacity=".92"/>
-          <ellipse cx="328" cy="234" rx="44" ry="16" fill="url(#gHer)" opacity=".7"/>
-          <!-- neck -->
-          <rect x="316" y="126" width="24" height="26" rx="8" fill="url(#gHer)" opacity=".9"/>
-          <!-- head -->
-          <circle cx="328" cy="106" r="34" fill="url(#gHer)" opacity=".95"/>
-          <!-- eye -->
-          <ellipse cx="337" cy="100" rx="5" ry="6" fill="#fff" opacity=".9"/>
-          <circle cx="335" cy="101" r="3" fill="#001a1a"/>
-          <!-- eyebrow (arched) -->
-          <path d="M330 92 Q337 88 343 91" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/>
-          <!-- ear -->
-          <ellipse cx="362" cy="108" rx="8" ry="11" fill="url(#gHer)" opacity=".85"/>
-          <!-- long hair -->
-          <path d="M298 86 Q295 68 328 66 Q361 68 362 86" fill="url(#gHer)" opacity=".85"/>
-          <path d="M298 100 Q290 130 295 175" stroke="url(#gHer)" stroke-width="9" fill="none" stroke-linecap="round" opacity=".6"/>
-          <path d="M362 100 Q370 130 365 175" stroke="url(#gHer)" stroke-width="9" fill="none" stroke-linecap="round" opacity=".6"/>
-          <!-- eyelashes -->
-          <path d="M332 96 Q334 91 337 93 M340 95 Q342 90 345 92" stroke="url(#gHer)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
-          <!-- arm around him -->
-          <path d="M298 165 Q240 150 180 158" stroke="url(#gHer)" stroke-width="14" fill="none" stroke-linecap="round" opacity=".8"/>
-          <circle cx="176" cy="160" r="9" fill="url(#gHer)" opacity=".8"/>
-        </g>
+          <!-- HER (right) -->
+          <g id="fr" filter="url(#gw)">
+            <rect x="269" y="148" width="56" height="70" rx="14" fill="url(#gS)" opacity=".9"/>
+            <ellipse cx="297" cy="218" rx="40" ry="12" fill="url(#gS)" opacity=".6"/>
+            <rect x="287" y="128" width="20" height="24" rx="7" fill="url(#gS)" opacity=".88"/>
+            <circle cx="297" cy="112" r="30" fill="url(#gS)" opacity=".95"/>
+            <!-- long hair -->
+            <path d="M270 96 Q268 70 297 68 Q326 70 326 90" fill="url(#gS)" opacity=".85"/>
+            <path d="M270 106 Q262 135 266 170" stroke="url(#gS)" stroke-width="9" fill="none" stroke-linecap="round" opacity=".55"/>
+            <path d="M326 106 Q334 135 330 170" stroke="url(#gS)" stroke-width="9" fill="none" stroke-linecap="round" opacity=".55"/>
+            <!-- ear -->
+            <ellipse cx="328" cy="114" rx="7" ry="10" fill="url(#gS)" opacity=".82"/>
+            <!-- eye -->
+            <ellipse cx="304" cy="108" rx="4.5" ry="5.5" fill="#fff" opacity=".92"/>
+            <circle cx="302" cy="109" r="2.8" fill="#001a1a"/>
+            <!-- lashes -->
+            <path d="M298 104 Q300 99 303 101 M306 103 Q308 98 311 100" stroke="url(#gS)" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".7"/>
+            <!-- brow (arched) -->
+            <path d="M297 101 Q303 97 310 100" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".65"/>
+            <!-- arm -->
+            <path d="M269 162 Q210 148 152 155" stroke="url(#gS)" stroke-width="13" fill="none" stroke-linecap="round" opacity=".82"/>
+            <circle cx="148" cy="157" r="8" fill="url(#gS)" opacity=".82"/>
+          </g>
 
-        <!-- LIPS / KISS mark — appears at center when they meet -->
-        <g id="lips-mark">
-          <text x="220" y="118" text-anchor="middle" font-size="32">💋</text>
-        </g>
+          <!-- KISS MARK — appears when faces meet -->
+          <g id="kiss-mark">
+            <text x="200" y="105" text-anchor="middle" font-size="28" dy=".3em">💋</text>
+          </g>
 
-        <!-- floating hearts during kiss -->
-        <text class="kiss-heart" x="190" y="80" font-size="18" style="animation-delay:0s">💗</text>
-        <text class="kiss-heart" x="220" y="60" font-size="22" style="animation-delay:.4s">❤️</text>
-        <text class="kiss-heart" x="250" y="75" font-size="16" style="animation-delay:.8s">💜</text>
-        <text class="kiss-heart" x="205" y="50" font-size="14" style="animation-delay:1.2s">✨</text>
-        <text class="kiss-heart" x="235" y="45" font-size="18" style="animation-delay:1.6s">💕</text>
-      </svg>
+          <!-- floating hearts during kiss -->
+          <text class="kh" x="178" y="82" font-size="16" style="animation-delay:.0s">💗</text>
+          <text class="kh" x="200" y="65" font-size="20" style="animation-delay:.35s">❤️</text>
+          <text class="kh" x="222" y="78" font-size="15" style="animation-delay:.7s">💜</text>
+          <text class="kh" x="188" y="55" font-size="13" style="animation-delay:1.05s">✨</text>
+          <text class="kh" x="212" y="50" font-size="17" style="animation-delay:1.4s">💕</text>
+        </svg>
+      </div>
 
       <!-- radial burst hearts -->
-      <div class="heart-burst" id="hburst"></div>
+      <div class="hburst" id="hburst"></div>
     </div>
 
     <!-- Reveal text -->
-    <div class="reveal-text-wrap">
+    <div class="reveal-wrap">
       <div class="reveal-big" id="revealBig">Shadikin Bhai is in Relationship</div>
       <div class="reveal-sub">💍 Officially Taken — No Vacancy 💍</div>
     </div>
 
-    <!-- Girl name -->
+    <!-- Name section — 3 states -->
     <div class="name-section">
-      <button class="btn btn-alt" id="btnName" onclick="revealName(event)">
+
+      <!-- Step 1 button -->
+      <button class="btn btn-cyan" id="btnReveal" onclick="step1(event)">
         <span id="lockIco">🔒</span>
-        <span id="btnNameTxt">REVEAL GIRL'S NAME</span>
+        <span id="btnRevealTxt">REVEAL GIRL'S NAME</span>
       </button>
-      <div class="name-bubble" id="nameBubble">
-        " ahh bolbo na " 🤫
+
+      <!-- Step 1 response bubble -->
+      <div class="bubble" id="bubble1">" ahh bolbo na " 🤫</div>
+
+      <!-- Step 2 button (appears after step 1) -->
+      <button class="btn btn-gold" id="btnBol" onclick="step2(event)" style="display:none">
+        🔥 Bol Notir Chele
+      </button>
+
+      <!-- Step 2 — name reveal -->
+      <div class="mun-reveal" id="munReveal">
+        <div class="mun-hearts">❤️ 💋 ❤️</div>
+        <div class="mun-name">mun</div>
+        <div class="mun-sub">— Her name is Mun 💍 —</div>
       </div>
+
     </div>
 
   </div>
 </div>
 
 <script>
-/* ════════════════════════════
-   PARTICLE BG
-════════════════════════════ */
+/* ══ PARTICLE BG ══ */
 const cv=document.getElementById('bg-canvas'),cx=cv.getContext('2d');
 const PC=['#ff2d78','#b400ff','#00f0ff','#ff80ab','#ea00ff','#ffd700'];
 let W,H,pts=[];
 function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight}
-rsz();window.addEventListener('resize',()=>{rsz();initP()});
+rsz();window.addEventListener('resize',rsz);
 function mkP(pre){
-  const p={};
-  p.reset=()=>{p.x=Math.random()*W;p.y=H+10;p.r=Math.random()*4+1;p.col=PC[Math.random()*PC.length|0];
-    p.sp=Math.random()*.7+.25;p.dr=(Math.random()-.5)*.5;p.a=0;p.fi=Math.random()*.018+.004;p.l=0;p.ml=Math.random()*220+140};
-  p.reset();if(pre){p.y=Math.random()*H;p.l=Math.random()*p.ml;p.a=Math.random()*.65}
+  const p={reset(){}};
+  p.reset=function(){
+    p.x=Math.random()*W;p.y=H+10;p.r=Math.random()*4+1;
+    p.col=PC[Math.random()*PC.length|0];
+    p.sp=Math.random()*.7+.25;p.dr=(Math.random()-.5)*.5;
+    p.a=0;p.fi=Math.random()*.018+.004;p.l=0;p.ml=Math.random()*220+140;
+  };
+  p.reset();
+  if(pre){p.y=Math.random()*H;p.l=Math.random()*p.ml;p.a=Math.random()*.65}
   return p;
 }
-function initP(){pts=Array.from({length:110},()=>mkP(true))}initP();
+pts=Array.from({length:110},()=>mkP(true));
 (function loop(){
   cx.clearRect(0,0,W,H);
   for(const p of pts){
     p.y-=p.sp;p.x+=p.dr;p.l++;
     if(p.l<p.ml*.3)p.a=Math.min(p.a+p.fi,.7);else p.a=Math.max(p.a-p.fi*.5,0);
     if(p.l>p.ml||p.y<-10)p.reset();
-    cx.save();cx.globalAlpha=p.a;cx.fillStyle=p.col;cx.shadowBlur=10;cx.shadowColor=p.col;
+    cx.save();cx.globalAlpha=p.a;cx.fillStyle=p.col;
+    cx.shadowBlur=10;cx.shadowColor=p.col;
     cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fill();cx.restore();
   }
   requestAnimationFrame(loop);
 })();
 
-/* ════════════════════════════
-   FLOATERS
-════════════════════════════ */
+/* ══ FLOATERS ══ */
 const FE=['❤️','💜','💗','💍','💋','✨','🌸','💘','💝'];
 const fcon=document.getElementById('floaters');
+const _s=document.createElement('style');
+_s.textContent=`@keyframes fUp{from{transform:translateY(0) rotate(0deg);opacity:.5}to{transform:translateY(-110vh) rotate(360deg);opacity:0}}`;
+document.head.appendChild(_s);
 function spawnF(){
   const el=document.createElement('div');
   el.textContent=FE[Math.random()*FE.length|0];
-  el.style.cssText=`position:fixed;left:${Math.random()*100}vw;bottom:-40px;font-size:${Math.random()*17+9}px;pointer-events:none;z-index:3;opacity:.5;animation:fUp ${Math.random()*5+4}s ease-out forwards`;
+  el.style.cssText=`position:fixed;left:${Math.random()*100}vw;bottom:-40px;font-size:${Math.random()*16+9}px;pointer-events:none;z-index:3;opacity:.5;animation:fUp ${Math.random()*5+4}s ease-out forwards`;
   fcon.appendChild(el);el.addEventListener('animationend',()=>el.remove());
 }
-const extra=document.createElement('style');
-extra.textContent=`@keyframes fUp{from{transform:translateY(0) rotate(0deg);opacity:.5}to{transform:translateY(-110vh) rotate(360deg);opacity:0}}`;
-document.head.appendChild(extra);
 setInterval(spawnF,550);
 
-/* ════════════════════════════
-   RIPPLE
-════════════════════════════ */
+/* ══ RIPPLE ══ */
 function ripple(btn,e){
   const r=btn.getBoundingClientRect(),rp=document.createElement('span');
-  rp.className='ripple';const sz=Math.max(r.width,r.height);
+  rp.className='ripple';
+  const sz=Math.max(r.width,r.height);
   rp.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-r.left-sz/2}px;top:${e.clientY-r.top-sz/2}px`;
-  btn.appendChild(rp);rp.addEventListener('animationend',()=>rp.remove());
+  btn.appendChild(rp);
+  rp.addEventListener('animationend',()=>rp.remove());
 }
 
-/* ════════════════════════════
-   CONFETTI
-════════════════════════════ */
-function confetti(n=60,cx2,cy2){
-  const C=['#ff2d78','#b400ff','#00f0ff','#ffd700','#ff80ab','#00ff88','#fff'];
-  for(let i=0;i<n;i++){
+/* ══ BLAST ══ */
+function blast(e){
+  const ox=e.clientX, oy=e.clientY;
+
+  /* 3 expanding rings */
+  const rcols=['#ff2d78','#b400ff','#00f0ff'];
+  rcols.forEach((col,i)=>{
+    const ring=document.createElement('div');
+    ring.className='blast-ring';
+    ring.style.cssText=`left:${ox}px;top:${oy}px;width:20px;height:20px;border:3px solid ${col};animation-delay:${i*0.1}s`;
+    document.body.appendChild(ring);
+    ring.addEventListener('animationend',()=>ring.remove());
+  });
+
+  /* screen flash */
+  const fl=document.createElement('div');
+  fl.className='blast-flash';
+  fl.style.setProperty('--bx',ox+'px');
+  fl.style.setProperty('--by',oy+'px');
+  document.body.appendChild(fl);
+  fl.addEventListener('animationend',()=>fl.remove());
+
+  /* emoji burst — radially outward from click */
+  const ems=['❤️','💜','💗','💋','✨','🌸','💘','💝','🔓','🎉','🥳','💯','🌹','💞'];
+  for(let i=0;i<22;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      el.className='blast-emoji';
+      el.textContent=ems[Math.random()*ems.length|0];
+      const angle=Math.random()*Math.PI*2, dist=Math.random()*240+90;
+      const sz=Math.random()*18+14;
+      el.style.cssText=`left:${ox}px;top:${oy}px;font-size:${sz}px;--ex:${Math.cos(angle)*dist}px;--ey:${Math.sin(angle)*dist}px;animation-duration:${Math.random()*.7+.8}s;animation-delay:${Math.random()*.15}s`;
+      document.body.appendChild(el);
+      el.addEventListener('animationend',()=>el.remove());
+    },i*18);
+  }
+
+  /* confetti */
+  const CC=['#ff2d78','#b400ff','#00f0ff','#ffd700','#ff80ab','#00ff88','#fff'];
+  for(let i=0;i<90;i++){
     setTimeout(()=>{
       const el=document.createElement('div');el.className='cp';
-      el.style.cssText=`left:${cx2!=null?cx2+'px':Math.random()*100+'vw'};top:${cy2!=null?cy2+'px':'0'};background:${C[Math.random()*C.length|0]};border-radius:${Math.random()>.5?'50%':'2px'};transform:rotate(${Math.random()*360}deg);animation-duration:${Math.random()*2+1.4}s;animation-delay:${Math.random()*.4}s`;
-      document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());
-    },i*25);
+      el.style.cssText=`left:${ox+(Math.random()*120-60)}px;top:${oy}px;background:${CC[Math.random()*CC.length|0]};border-radius:${Math.random()>.5?'50%':'2px'};transform:rotate(${Math.random()*360}deg);animation-duration:${Math.random()*2+1.5}s;animation-delay:${Math.random()*.5}s`;
+      document.body.appendChild(el);
+      el.addEventListener('animationend',()=>el.remove());
+    },i*18);
   }
 }
 
-/* ════════════════════════════
-   HEART BURST (page2 scene)
-════════════════════════════ */
+/* ══ HEART BURST (scene) ══ */
 function buildBurst(){
   const w=document.getElementById('hburst');w.innerHTML='';
   const H2=['❤️','💜','💗','💋','✨','🌸','💘','💝','🌹'];
   for(let i=0;i<14;i++){
     const s=document.createElement('span');
     s.textContent=H2[i%H2.length];
-    const a=(i/14)*Math.PI*2,d=Math.random()*110+55;
+    const a=(i/14)*Math.PI*2,d=Math.random()*95+50;
     s.style.setProperty('--tx',`${Math.cos(a)*d}px`);
-    s.style.setProperty('--ty',`${Math.sin(a)*d-70}px`);
-    s.style.animationDelay=`${i*.2}s`;
-    s.style.animationDuration=`${Math.random()+2.5}s`;
+    s.style.setProperty('--ty',`${Math.sin(a)*d-60}px`);
+    s.style.animationDelay=`${i*.22}s`;
+    s.style.animationDuration=`${Math.random()+2.4}s`;
     w.appendChild(s);
   }
 }
 
-/* ════════════════════════════
-   WAVE TEXT
-════════════════════════════ */
+/* ══ WAVE TEXT ══ */
 function waveEl(el){
   const t=el.textContent;
-  el.innerHTML=t.split('').map((c,i)=>c===' '?'<span>&nbsp;</span>':`<span class="wc" style="animation-delay:${i*.065}s">${c}</span>`).join('');
+  el.innerHTML=t.split('').map((c,i)=>
+    c===' '?'<span style="display:inline-block">&nbsp;</span>':
+    `<span class="wc" style="animation-delay:${i*.065}s">${c}</span>`
+  ).join('');
 }
 
-/* ════════════════════════════
-   BLAST EFFECT
-════════════════════════════ */
-function blast(originEl){
-  const rect=originEl.getBoundingClientRect();
-  const ox=rect.left+rect.width/2, oy=rect.top+rect.height/2;
-
-  /* shockwave rings */
-  const bl=document.getElementById('blast');
-  bl.style.left=ox+'px';bl.style.top=oy+'px';bl.style.width='0';bl.style.height='0';
-  bl.classList.remove('fire');void bl.offsetWidth;bl.classList.add('fire');
-
-  /* emoji explosion */
-  const em=['❤️','💜','💗','💋','✨','🌸','💘','💝','🔓','💯','🎉','🥳'];
-  for(let i=0;i<24;i++){
-    setTimeout(()=>{
-      const el=document.createElement('div');el.className='eb';
-      el.textContent=em[Math.random()*em.length|0];
-      const angle=Math.random()*Math.PI*2,dist=Math.random()*260+80;
-      el.style.cssText=`left:${ox}px;top:${oy}px;--ex:${Math.cos(angle)*dist}px;--ey:${Math.sin(angle)*dist}px;animation-duration:${Math.random()*.8+.8}s;animation-delay:${Math.random()*.2}s`;
-      document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());
-    },i*20);
-  }
-
-  /* confetti from origin */
-  confetti(80,ox,oy);
-}
-
-/* ════════════════════════════
-   PAGE TRANSITIONS
-════════════════════════════ */
+/* ══ PAGE TRANSITIONS ══ */
 function goPage2(e){
-  ripple(document.getElementById('btn-check'),e);
-  confetti(70);
+  ripple(document.getElementById('btnCheck'),e);
+  // confetti burst
+  const CC=['#ff2d78','#b400ff','#00f0ff','#ffd700','#ff80ab'];
+  for(let i=0;i<70;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');el.className='cp';
+      el.style.cssText=`left:${Math.random()*100}vw;top:0;background:${CC[Math.random()*CC.length|0]};border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${Math.random()*2+1.5}s;animation-delay:${Math.random()*.4}s`;
+      document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());
+    },i*22);
+  }
   buildBurst();
   document.getElementById('page1').classList.replace('visible','hidden');
   document.getElementById('page2').classList.replace('hidden','visible');
   setTimeout(()=>waveEl(document.getElementById('revealBig')),650);
-  /* reset name */
-  nameShown=false;
-  document.getElementById('nameBubble').classList.remove('show');
-  document.getElementById('lockIco').textContent='🔒';
-  document.getElementById('btnNameTxt').textContent='REVEAL GIRL\'S NAME';
+  resetNameSection();
 }
+
 function goBack(){
   document.getElementById('page2').classList.replace('visible','hidden');
   document.getElementById('page1').classList.replace('hidden','visible');
 }
 
-/* ════════════════════════════
-   NAME REVEAL
-════════════════════════════ */
-let nameShown=false;
-function revealName(e){
-  ripple(document.getElementById('btnName'),e);
-  nameShown=!nameShown;
-  const bubble=document.getElementById('nameBubble');
-  const lockIco=document.getElementById('lockIco');
-  const txt=document.getElementById('btnNameTxt');
+/* ══ NAME REVEAL STATE MACHINE ══ */
+function resetNameSection(){
+  document.getElementById('bubble1').classList.remove('show');
+  document.getElementById('btnBol').style.display='none';
+  document.getElementById('munReveal').classList.remove('show');
+  document.getElementById('lockIco').textContent='🔒';
+  document.getElementById('btnRevealTxt').textContent='REVEAL GIRL\'S NAME';
+  document.getElementById('btnReveal').style.display='';
+}
 
-  if(nameShown){
-    blast(document.getElementById('btnName'));
-    bubble.classList.add('show');
-    bubble.style.animation='none';void bubble.offsetWidth;
-    bubble.style.animation='bubblePop .6s cubic-bezier(.34,1.56,.64,1) both';
-    lockIco.textContent='🔓';
-    txt.textContent='HIDE NAME';
-  } else {
-    bubble.classList.remove('show');
-    lockIco.textContent='🔒';
-    txt.textContent='REVEAL GIRL\'S NAME';
-  }
+// STEP 1: click "Reveal Girl's Name"
+function step1(e){
+  ripple(document.getElementById('btnReveal'),e);
+
+  const b1=document.getElementById('bubble1');
+  const btnBol=document.getElementById('btnBol');
+
+  b1.classList.add('show');
+  // re-trigger animation
+  b1.style.animation='none';void b1.offsetWidth;
+  b1.style.animation='bubblePop .6s cubic-bezier(.34,1.56,.64,1) both';
+
+  document.getElementById('lockIco').textContent='🤫';
+  document.getElementById('btnRevealTxt').textContent='HIDE';
+
+  // show "Bol Notir Chele" after short delay
+  setTimeout(()=>{
+    btnBol.style.display='inline-flex';
+    btnBol.style.animation='none';void btnBol.offsetWidth;
+    btnBol.style.animation='bubblePop .5s cubic-bezier(.34,1.56,.64,1) both';
+  }, 600);
+
+  // re-bind to hide on second click
+  document.getElementById('btnReveal').onclick=function(ev){
+    ripple(this,ev);
+    resetNameSection();
+    this.onclick=function(e2){step1(e2)};
+  };
+}
+
+// STEP 2: click "Bol Notir Chele"
+function step2(e){
+  blast(e);
+  ripple(document.getElementById('btnBol'),e);
+
+  // hide the "bol" button
+  document.getElementById('btnBol').style.display='none';
+  // hide main reveal btn
+  document.getElementById('btnReveal').style.display='none';
+  // hide bubble1
+  document.getElementById('bubble1').classList.remove('show');
+
+  // show mun with delay for blast to play first
+  setTimeout(()=>{
+    const mr=document.getElementById('munReveal');
+    mr.classList.add('show');
+    mr.style.animation='none';void mr.offsetWidth;
+    mr.style.animation='munIn .8s cubic-bezier(.34,1.56,.64,1) both';
+  },300);
 }
 </script>
 </body>
