@@ -6,57 +6,48 @@
   <title>Shadikin Bhai 💘</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Dancing+Script:wght@700&display=swap');
-
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --pink:#ff2d78;--purple:#b400ff;--cyan:#00f0ff;
-      --gold:#ffd700;--dark:#07070e;--card:#111120;
-    }
+    :root{--pink:#ff2d78;--purple:#b400ff;--cyan:#00f0ff;--gold:#ffd700;--dark:#07070e;--card:#111120}
     html,body{width:100%;height:100%;background:var(--dark);font-family:'Rajdhani',sans-serif;overflow:hidden}
 
-    /* shared bg */
+    /* ── shared bg ── */
     #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
     .grid{position:fixed;inset:0;z-index:1;pointer-events:none;
       background:linear-gradient(rgba(180,0,255,.04) 1px,transparent 1px),
                  linear-gradient(90deg,rgba(180,0,255,.04) 1px,transparent 1px);
       background-size:44px 44px}
     .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;
-      background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.7) 100%)}
+      background:radial-gradient(ellipse at center,transparent 48%,rgba(0,0,0,.7) 100%)}
     .scanlines{position:fixed;inset:0;z-index:2;pointer-events:none;
       background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px)}
     #floaters{position:fixed;inset:0;pointer-events:none;z-index:3}
 
-    /* pages */
-    .page{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-      transition:opacity .55s,transform .55s}
+    /* ── pages ── */
+    .page{position:fixed;inset:0;transition:opacity .55s,transform .55s}
     .page.hidden{opacity:0;pointer-events:none;transform:scale(.93)}
     .page.visible{opacity:1;pointer-events:all;transform:scale(1)}
 
-    /* ══════════ PAGE 1 ══════════ */
-    #page1{z-index:10}
+    /* ══════════════════════
+       PAGE 1
+    ══════════════════════ */
+    #page1{z-index:10;display:flex;align-items:center;justify-content:center}
 
     .card{
       position:relative;z-index:10;
-      background:linear-gradient(150deg,#16162a 0%,#0e0e1c 100%);
-      border:1px solid rgba(180,0,255,.4);
-      border-radius:30px;
-      padding:52px 44px 44px;
-      max-width:500px;width:92vw;
-      text-align:center;
+      background:linear-gradient(150deg,#16162a,#0e0e1c);
+      border:1px solid rgba(180,0,255,.4);border-radius:30px;
+      padding:52px 44px 44px;max-width:500px;width:92vw;text-align:center;
       box-shadow:0 0 60px rgba(180,0,255,.2),0 0 120px rgba(255,45,120,.07),
                  inset 0 1px 0 rgba(255,255,255,.07);
       animation:cardIn .9s cubic-bezier(.22,1,.36,1) both;
     }
     @keyframes cardIn{from{opacity:0;transform:translateY(55px) scale(.93)}to{opacity:1;transform:none}}
+    .br{position:absolute;width:22px;height:22px;border-style:solid}
+    .br.tl{top:-1px;left:-1px;border-color:var(--pink);border-width:2px 0 0 2px;border-radius:9px 0 0 0}
+    .br.tr{top:-1px;right:-1px;border-color:var(--cyan);border-width:2px 2px 0 0;border-radius:0 9px 0 0}
+    .br.bl{bottom:-1px;left:-1px;border-color:var(--cyan);border-width:0 0 2px 2px;border-radius:0 0 0 9px}
+    .br.br2{bottom:-1px;right:-1px;border-color:var(--pink);border-width:0 2px 2px 0;border-radius:0 0 9px 0}
 
-    /* 4-corner brackets */
-    .card .br{position:absolute;width:22px;height:22px;border-style:solid}
-    .card .br.tl{top:-1px;left:-1px;border-color:var(--pink);border-width:2px 0 0 2px;border-radius:9px 0 0 0}
-    .card .br.tr{top:-1px;right:-1px;border-color:var(--cyan);border-width:2px 2px 0 0;border-radius:0 9px 0 0}
-    .card .br.bl{bottom:-1px;left:-1px;border-color:var(--cyan);border-width:0 0 2px 2px;border-radius:0 0 0 9px}
-    .card .br.br2{bottom:-1px;right:-1px;border-color:var(--pink);border-width:0 2px 2px 0;border-radius:0 0 9px 0}
-
-    /* orbit ring */
     .hearts-ring{position:relative;width:140px;height:140px;margin:0 auto 26px}
     .center-heart{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
       font-size:56px;filter:drop-shadow(0 0 18px var(--pink));animation:hb 1.4s ease-in-out infinite}
@@ -69,7 +60,6 @@
     .orb.o2 span{font-size:13px}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* title */
     .p1title{
       font-family:'Orbitron',sans-serif;
       font-size:clamp(1.2rem,4.5vw,1.65rem);
@@ -80,18 +70,16 @@
     .p1title::before,.p1title::after{content:attr(data-t);position:absolute;top:0;left:0;width:100%;
       font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;pointer-events:none}
     .p1title::before{color:var(--cyan);clip-path:inset(0 0 55% 0);animation:gl1 4s infinite}
-    .p1title::after{color:var(--pink);clip-path:inset(55% 0 0 0);animation:gl2 4s infinite}
+    .p1title::after {color:var(--pink);clip-path:inset(55% 0 0 0);animation:gl2 4s infinite}
     @keyframes gl1{0%,93%,100%{transform:none;opacity:0}95%{transform:translate(-3px,-1px);opacity:.5}97%{transform:translate(2px,1px);opacity:.5}}
     @keyframes gl2{0%,93%,100%{transform:none;opacity:0}96%{transform:translate(3px,-1px);opacity:.5}98%{transform:translate(-2px,1px);opacity:.5}}
-
     .p1sub{font-size:.87rem;color:rgba(255,255,255,.3);letter-spacing:.07em;margin-bottom:12px}
     .divider{width:75%;height:1px;background:linear-gradient(90deg,transparent,var(--purple),var(--pink),var(--cyan),transparent);margin:0 auto 34px;opacity:.5}
 
-    /* buttons */
+    /* ── buttons ── */
     .btn{
       position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:15px 44px;
-      font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.1em;
+      padding:15px 44px;font-family:'Orbitron',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.1em;
       color:#fff;background:linear-gradient(135deg,var(--pink),var(--purple));
       border:none;border-radius:50px;cursor:pointer;overflow:hidden;
       box-shadow:0 0 28px rgba(255,45,120,.55),0 0 60px rgba(180,0,255,.28);
@@ -102,15 +90,12 @@
     .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 0 44px rgba(255,45,120,.8),0 0 90px rgba(180,0,255,.5)}
     .btn:hover::after{transform:skewX(-20deg) translateX(320%)}
     .btn:active{transform:scale(.97)}
-
     .btn-cyan{background:transparent;border:2px solid var(--cyan);color:var(--cyan);
-      box-shadow:0 0 22px rgba(0,240,255,.3);}
+      box-shadow:0 0 22px rgba(0,240,255,.3)}
     .btn-cyan:hover{background:rgba(0,240,255,.08);box-shadow:0 0 44px rgba(0,240,255,.65);color:#fff;border-color:#fff}
-
-    .btn-gold{background:linear-gradient(135deg,#ff9900,#ffd700);color:#000;
-      box-shadow:0 0 28px rgba(255,200,0,.6),0 0 60px rgba(255,150,0,.3);}
-    .btn-gold:hover{box-shadow:0 0 50px rgba(255,200,0,.9),0 0 100px rgba(255,150,0,.5)}
-
+    .btn-gold{background:linear-gradient(135deg,#ff8800,#ffd700);color:#000;
+      box-shadow:0 0 28px rgba(255,190,0,.6),0 0 60px rgba(255,130,0,.3)}
+    .btn-gold:hover{box-shadow:0 0 50px rgba(255,200,0,.9),0 0 100px rgba(255,130,0,.5)}
     .status-row{margin-top:28px;display:flex;align-items:center;justify-content:center;
       gap:8px;font-size:.77rem;color:rgba(255,255,255,.24);letter-spacing:.08em}
     .dot{width:8px;height:8px;border-radius:50%;background:var(--pink);
@@ -122,16 +107,48 @@
       transform:scale(0);animation:rip .65s linear forwards;pointer-events:none}
     @keyframes rip{to{transform:scale(5);opacity:0}}
 
-    /* ══════════ PAGE 2 ══════════ */
-    #page2{
-      z-index:20;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      overflow-y:auto;
-      overflow-x:hidden;
-      padding:60px 0 30px;
+    /* ══════════════════════
+       PAGE 2
+    ══════════════════════ */
+    #page2{z-index:20;display:flex;flex-direction:column;overflow:hidden}
+
+    /* ── ALWAYS-VISIBLE status banner ── */
+    .p2-banner{
+      position:relative;z-index:30;
+      flex-shrink:0;
+      width:100%;
+      padding:18px 20px 14px;
+      text-align:center;
+      background:linear-gradient(180deg,rgba(7,7,14,1) 70%,rgba(7,7,14,0));
     }
+    .p2-banner-main{
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(.85rem,3.5vw,1.5rem);
+      font-weight:900;letter-spacing:.07em;
+      background:linear-gradient(90deg,var(--pink),#ff9cf4,var(--cyan),var(--purple),var(--pink));
+      background-size:300%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      animation:shimmer 3s linear infinite;
+    }
+    @keyframes shimmer{to{background-position:300% center}}
+    .p2-banner-sub{
+      font-family:'Dancing Script',cursive;
+      font-size:clamp(.75rem,2.2vw,1.1rem);
+      color:rgba(255,255,255,.42);
+      margin-top:3px;
+    }
+    .wc{display:inline-block;animation:wv .65s ease-in-out infinite}
+    @keyframes wv{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+    /* ── scrollable body ── */
+    .p2-body{
+      flex:1;overflow-y:auto;overflow-x:hidden;
+      display:flex;flex-direction:column;align-items:center;
+      gap:18px;padding:8px 16px 30px;
+    }
+    .p2-body::-webkit-scrollbar{width:4px}
+    .p2-body::-webkit-scrollbar-track{background:transparent}
+    .p2-body::-webkit-scrollbar-thumb{background:rgba(180,0,255,.4);border-radius:4px}
 
     .back-btn{
       position:fixed;top:14px;left:14px;
@@ -142,175 +159,153 @@
     }
     .back-btn:hover{color:#fff;background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.3)}
 
-    .p2-inner{
-      display:flex;flex-direction:column;align-items:center;
-      gap:20px;
-      padding:0 16px 20px;
-      width:100%;max-width:680px;
-    }
-
-    /* ── KISS SCENE ── */
+    /* ══════════════════════
+       KISS SCENE
+    ══════════════════════ */
     .kiss-scene{
       position:relative;
       width:min(580px,94vw);
-      height:clamp(210px,30vw,290px);
-      border-radius:20px;
-      overflow:hidden;
+      height:clamp(200px,34vw,300px);
+      border-radius:22px;overflow:hidden;
       border:1px solid rgba(255,45,120,.35);
-      box-shadow:0 0 50px rgba(255,45,120,.25),0 0 100px rgba(180,0,255,.1);
+      box-shadow:0 0 50px rgba(255,45,120,.22),0 0 100px rgba(180,0,255,.1);
       flex-shrink:0;
     }
-
-    /* photo background */
+    /* photo bg */
     .kiss-bg{
       position:absolute;inset:0;
       background-image:url('kiss.jpg');
-      background-size:cover;
-      background-position:center 35%;
-      filter:brightness(.55) contrast(1.15) grayscale(.15);
+      background-size:cover;background-position:center 35%;
+      filter:brightness(.5) contrast(1.2) grayscale(.1) saturate(1.2);
     }
-    /* fallback gradient shown if no image */
     .kiss-bg::before{
       content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse at 50% 60%,#3d0028 0%,#1a0018 40%,#07070e 100%);
-      z-index:-1;
+      background:radial-gradient(ellipse at 50% 60%,#3d0028,#1a0018 45%,#07070e 100%);
+      z-index:0;
     }
-
-    /* dark cinematic overlay on photo */
     .kiss-overlay{
       position:absolute;inset:0;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 50%,transparent 30%,rgba(7,7,14,.55) 100%),
-        linear-gradient(to bottom,rgba(7,7,14,.3) 0%,transparent 30%,transparent 70%,rgba(7,7,14,.5) 100%);
+      background:linear-gradient(to bottom,rgba(7,7,14,.25) 0%,transparent 25%,transparent 75%,rgba(7,7,14,.55) 100%),
+                 radial-gradient(ellipse 80% 80% at 50% 50%,transparent 35%,rgba(7,7,14,.45) 100%);
     }
-
-    /* spotlight glow */
     .kiss-spotlight{
       position:absolute;inset:0;
-      background:radial-gradient(ellipse 50% 55% at 50% 52%,rgba(255,45,120,.14),rgba(180,0,255,.06) 55%,transparent);
+      background:radial-gradient(ellipse 55% 60% at 50% 52%,rgba(255,45,120,.12),rgba(180,0,255,.05) 55%,transparent);
       animation:spPulse 2.5s ease-in-out infinite;
     }
-    @keyframes spPulse{0%,100%{opacity:1}50%{opacity:.4}}
+    @keyframes spPulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-    /* SVG couple - centered on top of photo */
-    .svg-center{
-      position:absolute;inset:0;
-      display:flex;align-items:center;justify-content:center;
+    .svg-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .kiss-svg{width:80%;max-width:440px;overflow:visible}
+
+    /* ── KISS ANIMATION: 5s loop
+       0–5%: rest apart
+       5–32%: lean in
+       32–65%: kissing (eyes closed, hearts, kiss mark)
+       65–80%: pull back
+       80–100%: rest apart
+    ── */
+    #guyL{
+      animation:leanL 5s ease-in-out infinite;
+      transform-box:fill-box;
+      transform-origin:right center;
     }
-    .couple-svg{
-      width:65%;
-      max-width:360px;
-      filter:drop-shadow(0 0 22px rgba(255,45,120,.6)) drop-shadow(0 0 8px rgba(180,0,255,.5));
-      overflow:visible;
+    #guyR{
+      animation:leanR 5s ease-in-out infinite;
+      transform-box:fill-box;
+      transform-origin:left center;
+    }
+    @keyframes leanL{
+      0%,5%,80%,100%{transform:translateX(0) rotate(0deg)}
+      32%,65%       {transform:translateX(22px) rotate(7deg)}
+    }
+    @keyframes leanR{
+      0%,5%,80%,100%{transform:translateX(0) rotate(0deg)}
+      32%,65%       {transform:translateX(-22px) rotate(-7deg)}
     }
 
-    /* kiss animation: 0-30% lean in | 30-65% kissing | 65-80% pull back | 80-100% rest */
-    #fl{animation:leanL 5s ease-in-out infinite;transform-origin:140px 115px}
-    #fr{animation:leanR 5s ease-in-out infinite;transform-origin:260px 115px}
-    @keyframes leanL{0%,5%,80%,100%{transform:translateX(0) rotate(0deg)}30%,65%{transform:translateX(16px) rotate(5deg)}}
-    @keyframes leanR{0%,5%,80%,100%{transform:translateX(0) rotate(0deg)}30%,65%{transform:translateX(-16px) rotate(-5deg)}}
+    /* eyes: open during rest, closed during kiss */
+    .eye-open{animation:eyeOC 5s ease-in-out infinite}
+    @keyframes eyeOC{0%,26%,72%,100%{opacity:1}32%,65%{opacity:0}}
 
-    #kiss-mark{animation:kissAppear 5s ease-in-out infinite;transform-origin:200px 105px}
-    @keyframes kissAppear{0%,22%,75%,100%{opacity:0;transform:scale(.1)}30%,62%{opacity:1;transform:scale(1)}}
+    .eye-closed{animation:eyeCO 5s ease-in-out infinite;opacity:0}
+    @keyframes eyeCO{0%,26%,72%,100%{opacity:0}32%,65%{opacity:1}}
 
-    .kh{animation:kissHrt 5s ease-in-out infinite;opacity:0}
-    @keyframes kissHrt{
-      0%,28%{opacity:0;transform:translateY(0) scale(.5)}
-      38%{opacity:1;transform:translateY(-12px) scale(1.1)}
-      62%{opacity:.8;transform:translateY(-35px) scale(.75)}
-      72%,100%{opacity:0;transform:translateY(-55px) scale(.3)}
+    /* kiss mark appears during kiss */
+    #kissmark{animation:kmAnim 5s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+    @keyframes kmAnim{0%,24%,74%,100%{opacity:0;transform:scale(.1)}33%,62%{opacity:1;transform:scale(1)}}
+
+    /* hearts during kiss */
+    .kh{animation:khAnim 5s ease-in-out infinite;opacity:0;transform-box:fill-box;transform-origin:center}
+    @keyframes khAnim{
+      0%,30%{opacity:0;transform:translateY(0) scale(.4)}
+      40%{opacity:1;transform:translateY(-14px) scale(1.1)}
+      63%{opacity:.7;transform:translateY(-38px) scale(.7)}
+      73%,100%{opacity:0;transform:translateY(-55px) scale(.2)}
     }
 
-    /* burst hearts orbit */
+    /* sweat drop on "normal" side when cheeks flush */
+    .flush{animation:flushAnim 5s ease-in-out infinite;opacity:0}
+    @keyframes flushAnim{0%,28%,72%,100%{opacity:0}35%,62%{opacity:1}}
+
+    /* burst hearts */
     .hburst{position:absolute;inset:0;pointer-events:none}
-    .hburst span{
-      position:absolute;font-size:clamp(.8rem,2vw,1.4rem);
-      top:50%;left:50%;pointer-events:none;
-      animation:hbo 3s ease-out infinite;opacity:0;
-    }
+    .hburst span{position:absolute;top:50%;left:50%;font-size:clamp(.8rem,1.8vw,1.3rem);
+      pointer-events:none;animation:hbo 3s ease-out infinite;opacity:0}
     @keyframes hbo{
-      0%  {transform:translate(-50%,-50%) scale(.3);opacity:0}
-      12% {opacity:1}
+      0%{transform:translate(-50%,-50%) scale(.3);opacity:0}
+      12%{opacity:1}
       100%{transform:translate(var(--tx),var(--ty)) scale(.05);opacity:0}
     }
 
-    /* ── reveal text ── */
-    .reveal-wrap{text-align:center;padding:0 8px}
-    .reveal-big{
-      font-family:'Orbitron',sans-serif;
-      font-size:clamp(1rem,4.2vw,1.9rem);
-      font-weight:900;letter-spacing:.06em;
-      background:linear-gradient(90deg,var(--pink),#ff9cf4,var(--cyan),var(--purple),var(--pink));
-      background-size:300%;
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      animation:shimmer 3s linear infinite;
-      margin-bottom:6px;
-    }
-    @keyframes shimmer{to{background-position:300% center}}
-    .reveal-sub{font-family:'Dancing Script',cursive;font-size:clamp(.9rem,2.8vw,1.5rem);color:rgba(255,255,255,.48)}
+    /* ══════════════════════
+       NAME SECTION
+    ══════════════════════ */
+    .name-section{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:520px}
 
-    /* wave chars */
-    .wc{display:inline-block;animation:wv .65s ease-in-out infinite}
-    @keyframes wv{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-
-    /* ── name section ── */
-    .name-section{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
-
-    /* speech bubble */
     .bubble{
-      display:none;
-      position:relative;
+      display:none;position:relative;
       background:linear-gradient(140deg,#200038,#0c001e);
-      border:1px solid var(--purple);
-      border-radius:22px;
-      padding:18px 38px;
+      border:1px solid var(--purple);border-radius:22px;
+      padding:16px 36px;
       font-family:'Dancing Script',cursive;
-      font-size:clamp(1.3rem,5vw,2.2rem);
-      color:var(--pink);
-      text-shadow:0 0 20px rgba(255,45,120,.6);
-      box-shadow:0 0 45px rgba(180,0,255,.4);
-      text-align:center;
-      animation:bubblePop .6s cubic-bezier(.34,1.56,.64,1) both;
+      font-size:clamp(1.2rem,4.5vw,2rem);
+      color:var(--pink);text-shadow:0 0 18px rgba(255,45,120,.6);
+      box-shadow:0 0 42px rgba(180,0,255,.4);
+      text-align:center;animation:bPop .6s cubic-bezier(.34,1.56,.64,1) both;
     }
     .bubble.show{display:block}
-    @keyframes bubblePop{from{opacity:0;transform:scale(.35) rotate(-5deg)}to{opacity:1;transform:none}}
+    @keyframes bPop{from{opacity:0;transform:scale(.35) rotate(-5deg)}to{opacity:1;transform:none}}
     .bubble::before{content:'';position:absolute;inset:0;
       background:linear-gradient(135deg,rgba(255,255,255,.07),transparent);border-radius:inherit;pointer-events:none}
-    /* tail */
     .bubble::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
       border:10px solid transparent;border-top-color:var(--purple);border-bottom:0}
 
-    /* mun reveal */
+    /* mun name */
     .mun-reveal{
-      display:none;
-      flex-direction:column;align-items:center;gap:8px;
+      display:none;flex-direction:column;align-items:center;gap:8px;
       animation:munIn .8s cubic-bezier(.34,1.56,.64,1) both;
     }
     .mun-reveal.show{display:flex}
-    @keyframes munIn{from{opacity:0;transform:scale(.3) rotate(8deg)}to{opacity:1;transform:none}}
-
+    @keyframes munIn{from{opacity:0;transform:scale(.25) rotate(10deg)}to{opacity:1;transform:none}}
     .mun-name{
       font-family:'Dancing Script',cursive;
-      font-size:clamp(2.5rem,12vw,5.5rem);
+      font-size:clamp(3rem,14vw,6rem);
       font-weight:700;
       background:linear-gradient(135deg,var(--pink),#ff9cf4,var(--gold),var(--pink));
       background-size:250%;
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      animation:shimmer 2s linear infinite,munFloat 2s ease-in-out infinite;
-      filter:drop-shadow(0 0 20px rgba(255,45,120,.7));
-      line-height:1;
+      animation:shimmer 2s linear infinite, munFloat 2s ease-in-out infinite;
+      filter:drop-shadow(0 0 24px rgba(255,45,120,.7));
+      line-height:1.1;
     }
-    @keyframes munFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.04)}}
+    @keyframes munFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.05)}}
+    .mun-sub{font-family:'Dancing Script',cursive;font-size:clamp(.85rem,2.5vw,1.2rem);color:rgba(255,255,255,.45)}
+    .mun-hearts{font-size:1.5rem;animation:hb 1.2s ease-in-out infinite;letter-spacing:8px}
 
-    .mun-sub{font-family:'Dancing Script',cursive;font-size:clamp(.85rem,2.5vw,1.2rem);color:rgba(255,255,255,.45);letter-spacing:.05em}
-    .mun-hearts{font-size:1.4rem;animation:hb 1.2s ease-in-out infinite;letter-spacing:6px}
-
-    /* blast rings — fixed positioned, created by JS */
+    /* ── BLAST FX ── */
     .blast-ring{
-      position:fixed;
-      border-radius:50%;
-      pointer-events:none;
-      z-index:800;
+      position:fixed;border-radius:50%;pointer-events:none;z-index:800;
       transform:translate(-50%,-50%) scale(1);
       animation:ringOut .9s ease-out forwards;
     }
@@ -320,23 +315,19 @@
     }
     .blast-flash{
       position:fixed;inset:0;pointer-events:none;z-index:790;
-      background:radial-gradient(circle at var(--bx) var(--by),rgba(255,255,255,.16),rgba(255,45,120,.07) 35%,transparent 65%);
       animation:flashFade .5s ease-out forwards;
     }
     @keyframes flashFade{0%{opacity:1}100%{opacity:0}}
     .blast-emoji{
-      position:fixed;pointer-events:none;z-index:810;
-      animation:emojiBlast ease-out forwards;
+      position:fixed;pointer-events:none;z-index:810;font-size:1.4rem;
+      animation:emB ease-out forwards;
     }
-    @keyframes emojiBlast{
-      0%  {opacity:1;transform:translate(-50%,-50%) scale(1)}
-      100%{opacity:0;transform:translate(calc(-50% + var(--ex)),calc(-50% + var(--ey))) scale(.15)}
+    @keyframes emB{
+      0%  {opacity:1;transform:translate(-50%,-50%) scale(1.2)}
+      100%{opacity:0;transform:translate(calc(-50% + var(--ex)),calc(-50% + var(--ey))) scale(.1)}
     }
-    .cp{
-      position:fixed;pointer-events:none;z-index:810;
-      width:8px;height:8px;
-      animation:cpFall linear forwards;
-    }
+    .cp{position:fixed;pointer-events:none;z-index:810;width:8px;height:8px;
+      animation:cpFall linear forwards;border-radius:1px}
     @keyframes cpFall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(108vh) rotate(700deg)}}
   </style>
 </head>
@@ -351,10 +342,8 @@
 <!-- ══════════ PAGE 1 ══════════ -->
 <div id="page1" class="page visible">
   <div class="card">
-    <span class="br tl"></span>
-    <span class="br tr"></span>
-    <span class="br bl"></span>
-    <span class="br br2"></span>
+    <span class="br tl"></span><span class="br tr"></span>
+    <span class="br bl"></span><span class="br br2"></span>
 
     <div class="hearts-ring">
       <div class="center-heart">❤️</div>
@@ -375,9 +364,7 @@
     <div class="p1title" data-t="SHADIKIN BHAI">SHADIKIN BHAI</div>
     <div class="p1sub">◈ RELATIONSHIP STATUS SYSTEM v2.0 ◈</div>
     <div class="divider"></div>
-
     <button class="btn" id="btnCheck" onclick="goPage2(event)">❤️ CHECK STATUS</button>
-
     <div class="status-row">
       <span class="dot"></span>
       LOVE SIGNAL DETECTED &nbsp;•&nbsp; SYSTEM ACTIVE
@@ -389,7 +376,14 @@
 <div id="page2" class="page hidden">
   <button class="back-btn" onclick="goBack()">← BACK</button>
 
-  <div class="p2-inner">
+  <!-- ALWAYS VISIBLE BANNER -->
+  <div class="p2-banner">
+    <div class="p2-banner-main" id="bannerText">Shadikin Bhai is Taken</div>
+    <div class="p2-banner-sub">💍 Officially Taken — No Vacancy 💍</div>
+  </div>
+
+  <!-- SCROLLABLE CONTENT -->
+  <div class="p2-body">
 
     <!-- KISS SCENE -->
     <div class="kiss-scene">
@@ -397,108 +391,183 @@
       <div class="kiss-overlay"></div>
       <div class="kiss-spotlight"></div>
 
-      <!-- SVG couple centered over photo -->
       <div class="svg-center">
-        <svg class="couple-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <!--
+          Two cartoon guys with mustaches kissing.
+          ViewBox: 0 0 500 260
+          Guy Left (pink/purple) centered ~x=125
+          Guy Right (cyan/purple) centered ~x=375
+          They lean toward each other and kiss at center (~x=250)
+        -->
+        <svg class="kiss-svg" viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" overflow="visible">
           <defs>
-            <linearGradient id="gH" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#ff2d78"/><stop offset="100%" stop-color="#c000ff"/>
+            <!-- Left guy gradient: pink→purple -->
+            <linearGradient id="gL1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ff2d78"/>
+              <stop offset="100%" stop-color="#c000ee"/>
             </linearGradient>
-            <linearGradient id="gS" x1="1" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#9400ff"/>
+            <!-- Left guy hair/dark -->
+            <linearGradient id="gL2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2d0040"/>
+              <stop offset="100%" stop-color="#1a0028"/>
             </linearGradient>
-            <filter id="gw" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="4" result="b"/>
+            <!-- Right guy gradient: cyan→purple -->
+            <linearGradient id="gR1" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00e0ff"/>
+              <stop offset="100%" stop-color="#8800ff"/>
+            </linearGradient>
+            <!-- Right guy hair/dark -->
+            <linearGradient id="gR2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#002d40"/>
+              <stop offset="100%" stop-color="#001a28"/>
+            </linearGradient>
+            <!-- skin tone: warm peachy -->
+            <linearGradient id="skinL" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f9c8a0"/>
+              <stop offset="100%" stop-color="#e8a070"/>
+            </linearGradient>
+            <linearGradient id="skinR" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f7c5b0"/>
+              <stop offset="100%" stop-color="#e09070"/>
+            </linearGradient>
+            <filter id="gw" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="5" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="gwSoft" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="2.5" result="b"/>
               <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
 
-          <!-- HIM (left) -->
-          <g id="fl" filter="url(#gw)">
-            <rect x="75" y="148" width="56" height="70" rx="14" fill="url(#gH)" opacity=".9"/>
-            <ellipse cx="103" cy="218" rx="40" ry="12" fill="url(#gH)" opacity=".6"/>
-            <rect x="93" y="128" width="20" height="24" rx="7" fill="url(#gH)" opacity=".88"/>
-            <circle cx="103" cy="112" r="30" fill="url(#gH)" opacity=".95"/>
-            <!-- hair -->
-            <path d="M76 96 Q80 74 103 72 Q122 73 126 90" fill="url(#gH)" opacity=".85"/>
-            <!-- ear -->
-            <ellipse cx="72" cy="114" rx="7" ry="10" fill="url(#gH)" opacity=".82"/>
-            <!-- eye -->
-            <ellipse cx="96" cy="108" rx="4.5" ry="5.5" fill="#fff" opacity=".92"/>
-            <circle cx="98" cy="109" r="2.8" fill="#0a0015"/>
-            <!-- brow -->
-            <path d="M90 101 Q96 97 103 100" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".65"/>
-            <!-- arm -->
-            <path d="M131 162 Q190 148 248 155" stroke="url(#gH)" stroke-width="13" fill="none" stroke-linecap="round" opacity=".82"/>
-            <circle cx="252" cy="157" r="8" fill="url(#gH)" opacity=".82"/>
+          <!-- ══ GUY LEFT ══ -->
+          <g id="guyL" filter="url(#gw)">
+            <!-- body/shirt -->
+            <rect x="90" y="178" width="70" height="75" rx="18" fill="url(#gL1)" opacity=".92"/>
+            <ellipse cx="125" cy="253" rx="46" ry="14" fill="url(#gL1)" opacity=".6"/>
+            <!-- collar detail -->
+            <path d="M110 178 Q125 188 140 178" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2.5"/>
+            <!-- neck -->
+            <rect x="112" y="155" width="26" height="28" rx="9" fill="url(#skinL)" opacity=".9"/>
+            <!-- HEAD -->
+            <ellipse cx="125" cy="122" rx="46" ry="50" fill="url(#skinL)" opacity=".98"/>
+            <!-- ears -->
+            <ellipse cx="79" cy="124" rx="10" ry="14" fill="url(#skinL)" opacity=".88"/>
+            <ellipse cx="79" cy="124" rx="5" ry="8" fill="rgba(220,120,100,.4)" opacity=".5"/>
+            <!-- HAIR (short, wavy top) -->
+            <path d="M83 102 Q85 72 125 68 Q160 69 165 95" fill="url(#gL2)" opacity=".9"/>
+            <path d="M83 102 Q80 90 84 80" stroke="url(#gL2)" stroke-width="8" fill="none" stroke-linecap="round" opacity=".85"/>
+            <!-- sideburns -->
+            <path d="M83 115 Q80 128 82 140" stroke="url(#gL2)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+            <!-- EYEBROW left -->
+            <path d="M97 103 Q109 97 122 101" stroke="#3a1a00" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
+            <!-- EYE left — OPEN -->
+            <g class="eye-open">
+              <ellipse cx="110" cy="112" rx="9" ry="10" fill="white" opacity=".97"/>
+              <circle cx="112" cy="113" r="6" fill="#3a1000"/>
+              <circle cx="113" cy="111" r="2.5" fill="white" opacity=".85"/>
+              <!-- upper lash -->
+              <path d="M101 108 Q110 104 119 108" stroke="#2a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- EYE left — CLOSED -->
+            <path class="eye-closed" d="M101 112 Q110 106 119 112" stroke="#3a1a00" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <!-- blush (visible during kiss) -->
+            <ellipse class="flush" cx="96" cy="128" rx="12" ry="7" fill="rgba(255,100,100,.35)" opacity=".0"/>
+            <!-- NOSE -->
+            <path d="M122 122 Q128 132 134 128 Q130 122 122 122" fill="rgba(180,90,50,.35)" stroke="rgba(160,70,40,.4)" stroke-width="1.2"/>
+            <!-- MUSTACHE (thick, handlebar style) ← the star feature -->
+            <path d="M97 148 Q108 140 125 145 Q142 140 153 148" stroke="#2a0a00" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+            <!-- mustache curl ends -->
+            <path d="M97 148 Q91 152 94 156" stroke="#2a0a00" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <path d="M153 148 Q159 152 156 156" stroke="#2a0a00" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <!-- LIPS (upper + lower) -->
+            <path d="M107 155 Q116 150 125 155 Q134 150 143 155" fill="none" stroke="rgba(180,60,80,.7)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M109 155 Q125 163 141 155" fill="rgba(200,80,90,.25)" stroke="rgba(180,60,80,.6)" stroke-width="2" stroke-linecap="round"/>
+            <!-- arm reaching right -->
+            <path d="M162 195 Q210 182 258 188" stroke="url(#gL1)" stroke-width="15" fill="none" stroke-linecap="round" opacity=".85"/>
+            <circle cx="262" cy="190" r="10" fill="url(#gL1)" opacity=".85"/>
           </g>
 
-          <!-- HER (right) -->
-          <g id="fr" filter="url(#gw)">
-            <rect x="269" y="148" width="56" height="70" rx="14" fill="url(#gS)" opacity=".9"/>
-            <ellipse cx="297" cy="218" rx="40" ry="12" fill="url(#gS)" opacity=".6"/>
-            <rect x="287" y="128" width="20" height="24" rx="7" fill="url(#gS)" opacity=".88"/>
-            <circle cx="297" cy="112" r="30" fill="url(#gS)" opacity=".95"/>
-            <!-- long hair -->
-            <path d="M270 96 Q268 70 297 68 Q326 70 326 90" fill="url(#gS)" opacity=".85"/>
-            <path d="M270 106 Q262 135 266 170" stroke="url(#gS)" stroke-width="9" fill="none" stroke-linecap="round" opacity=".55"/>
-            <path d="M326 106 Q334 135 330 170" stroke="url(#gS)" stroke-width="9" fill="none" stroke-linecap="round" opacity=".55"/>
-            <!-- ear -->
-            <ellipse cx="328" cy="114" rx="7" ry="10" fill="url(#gS)" opacity=".82"/>
-            <!-- eye -->
-            <ellipse cx="304" cy="108" rx="4.5" ry="5.5" fill="#fff" opacity=".92"/>
-            <circle cx="302" cy="109" r="2.8" fill="#001a1a"/>
-            <!-- lashes -->
-            <path d="M298 104 Q300 99 303 101 M306 103 Q308 98 311 100" stroke="url(#gS)" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".7"/>
-            <!-- brow (arched) -->
-            <path d="M297 101 Q303 97 310 100" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".65"/>
-            <!-- arm -->
-            <path d="M269 162 Q210 148 152 155" stroke="url(#gS)" stroke-width="13" fill="none" stroke-linecap="round" opacity=".82"/>
-            <circle cx="148" cy="157" r="8" fill="url(#gS)" opacity=".82"/>
+          <!-- ══ GUY RIGHT ══ -->
+          <g id="guyR" filter="url(#gw)">
+            <!-- body/shirt -->
+            <rect x="340" y="178" width="70" height="75" rx="18" fill="url(#gR1)" opacity=".92"/>
+            <ellipse cx="375" cy="253" rx="46" ry="14" fill="url(#gR1)" opacity=".6"/>
+            <!-- collar -->
+            <path d="M360 178 Q375 188 390 178" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2.5"/>
+            <!-- neck -->
+            <rect x="362" y="155" width="26" height="28" rx="9" fill="url(#skinR)" opacity=".9"/>
+            <!-- HEAD -->
+            <ellipse cx="375" cy="122" rx="46" ry="50" fill="url(#skinR)" opacity=".98"/>
+            <!-- ears -->
+            <ellipse cx="421" cy="124" rx="10" ry="14" fill="url(#skinR)" opacity=".88"/>
+            <ellipse cx="421" cy="124" rx="5" ry="8" fill="rgba(220,120,100,.4)" opacity=".5"/>
+            <!-- HAIR (short, slightly different style) -->
+            <path d="M337 95 Q340 69 375 66 Q410 68 417 102" fill="url(#gR2)" opacity=".9"/>
+            <path d="M417 102 Q420 90 416 80" stroke="url(#gR2)" stroke-width="8" fill="none" stroke-linecap="round" opacity=".85"/>
+            <!-- sideburns -->
+            <path d="M417 115 Q420 128 418 140" stroke="url(#gR2)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+            <!-- EYEBROW right -->
+            <path d="M378 101 Q391 97 403 103" stroke="#3a1a00" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
+            <!-- EYE right — OPEN -->
+            <g class="eye-open">
+              <ellipse cx="390" cy="112" rx="9" ry="10" fill="white" opacity=".97"/>
+              <circle cx="388" cy="113" r="6" fill="#1a1000"/>
+              <circle cx="387" cy="111" r="2.5" fill="white" opacity=".85"/>
+              <!-- upper lash -->
+              <path d="M381 108 Q390 104 399 108" stroke="#2a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- EYE right — CLOSED -->
+            <path class="eye-closed" d="M381 112 Q390 106 399 112" stroke="#3a1a00" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <!-- blush -->
+            <ellipse class="flush" cx="404" cy="128" rx="12" ry="7" fill="rgba(255,100,100,.35)" opacity=".0"/>
+            <!-- NOSE -->
+            <path d="M378 122 Q372 132 366 128 Q370 122 378 122" fill="rgba(180,90,50,.35)" stroke="rgba(160,70,40,.4)" stroke-width="1.2"/>
+            <!-- MUSTACHE (same style, mirrored) -->
+            <path d="M347 148 Q358 140 375 145 Q392 140 403 148" stroke="#2a0a00" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+            <!-- mustache curl ends -->
+            <path d="M347 148 Q341 152 344 156" stroke="#2a0a00" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <path d="M403 148 Q409 152 406 156" stroke="#2a0a00" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <!-- LIPS -->
+            <path d="M357 155 Q366 150 375 155 Q384 150 393 155" fill="none" stroke="rgba(180,60,80,.7)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M359 155 Q375 163 391 155" fill="rgba(200,80,90,.25)" stroke="rgba(180,60,80,.6)" stroke-width="2" stroke-linecap="round"/>
+            <!-- arm reaching left -->
+            <path d="M338 195 Q290 182 242 188" stroke="url(#gR1)" stroke-width="15" fill="none" stroke-linecap="round" opacity=".85"/>
+            <circle cx="238" cy="190" r="10" fill="url(#gR1)" opacity=".85"/>
           </g>
 
-          <!-- KISS MARK — appears when faces meet -->
-          <g id="kiss-mark">
-            <text x="200" y="105" text-anchor="middle" font-size="28" dy=".3em">💋</text>
+          <!-- KISS MARK at center -->
+          <g id="kissmark">
+            <text x="250" y="140" text-anchor="middle" font-size="34" dy=".3em">💋</text>
           </g>
 
-          <!-- floating hearts during kiss -->
-          <text class="kh" x="178" y="82" font-size="16" style="animation-delay:.0s">💗</text>
-          <text class="kh" x="200" y="65" font-size="20" style="animation-delay:.35s">❤️</text>
-          <text class="kh" x="222" y="78" font-size="15" style="animation-delay:.7s">💜</text>
-          <text class="kh" x="188" y="55" font-size="13" style="animation-delay:1.05s">✨</text>
-          <text class="kh" x="212" y="50" font-size="17" style="animation-delay:1.4s">💕</text>
+          <!-- FLOATING HEARTS during kiss -->
+          <text class="kh" x="224" y="95" font-size="16" style="animation-delay:.0s">💗</text>
+          <text class="kh" x="250" y="76" font-size="22" style="animation-delay:.35s">❤️</text>
+          <text class="kh" x="276" y="92" font-size="15" style="animation-delay:.7s">💜</text>
+          <text class="kh" x="236" y="66" font-size="13" style="animation-delay:1.0s">✨</text>
+          <text class="kh" x="264" y="60" font-size="18" style="animation-delay:1.35s">💕</text>
+          <text class="kh" x="250" y="52" font-size="12" style="animation-delay:1.7s">🌸</text>
         </svg>
       </div>
 
-      <!-- radial burst hearts -->
       <div class="hburst" id="hburst"></div>
     </div>
 
-    <!-- Reveal text -->
-    <div class="reveal-wrap">
-      <div class="reveal-big" id="revealBig">Shadikin Bhai is in Relationship</div>
-      <div class="reveal-sub">💍 Officially Taken — No Vacancy 💍</div>
-    </div>
-
-    <!-- Name section — 3 states -->
+    <!-- NAME SECTION -->
     <div class="name-section">
 
-      <!-- Step 1 button -->
       <button class="btn btn-cyan" id="btnReveal" onclick="step1(event)">
         <span id="lockIco">🔒</span>
         <span id="btnRevealTxt">REVEAL GIRL'S NAME</span>
       </button>
 
-      <!-- Step 1 response bubble -->
       <div class="bubble" id="bubble1">" ahh bolbo na " 🤫</div>
 
-      <!-- Step 2 button (appears after step 1) -->
       <button class="btn btn-gold" id="btnBol" onclick="step2(event)" style="display:none">
         🔥 Bol Notir Chele
       </button>
 
-      <!-- Step 2 — name reveal -->
       <div class="mun-reveal" id="munReveal">
         <div class="mun-hearts">❤️ 💋 ❤️</div>
         <div class="mun-name">mun</div>
@@ -506,27 +575,21 @@
       </div>
 
     </div>
-
-  </div>
+  </div><!-- end p2-body -->
 </div>
 
 <script>
-/* ══ PARTICLE BG ══ */
+/* ══ PARTICLES ══ */
 const cv=document.getElementById('bg-canvas'),cx=cv.getContext('2d');
 const PC=['#ff2d78','#b400ff','#00f0ff','#ff80ab','#ea00ff','#ffd700'];
 let W,H,pts=[];
 function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight}
 rsz();window.addEventListener('resize',rsz);
 function mkP(pre){
-  const p={reset(){}};
-  p.reset=function(){
-    p.x=Math.random()*W;p.y=H+10;p.r=Math.random()*4+1;
-    p.col=PC[Math.random()*PC.length|0];
-    p.sp=Math.random()*.7+.25;p.dr=(Math.random()-.5)*.5;
-    p.a=0;p.fi=Math.random()*.018+.004;p.l=0;p.ml=Math.random()*220+140;
-  };
-  p.reset();
-  if(pre){p.y=Math.random()*H;p.l=Math.random()*p.ml;p.a=Math.random()*.65}
+  const p={};
+  p.reset=function(){p.x=Math.random()*W;p.y=H+10;p.r=Math.random()*4+1;p.col=PC[Math.random()*PC.length|0];
+    p.sp=Math.random()*.7+.25;p.dr=(Math.random()-.5)*.5;p.a=0;p.fi=Math.random()*.018+.004;p.l=0;p.ml=Math.random()*220+140};
+  p.reset();if(pre){p.y=Math.random()*H;p.l=Math.random()*p.ml;p.a=Math.random()*.65}
   return p;
 }
 pts=Array.from({length:110},()=>mkP(true));
@@ -536,8 +599,7 @@ pts=Array.from({length:110},()=>mkP(true));
     p.y-=p.sp;p.x+=p.dr;p.l++;
     if(p.l<p.ml*.3)p.a=Math.min(p.a+p.fi,.7);else p.a=Math.max(p.a-p.fi*.5,0);
     if(p.l>p.ml||p.y<-10)p.reset();
-    cx.save();cx.globalAlpha=p.a;cx.fillStyle=p.col;
-    cx.shadowBlur=10;cx.shadowColor=p.col;
+    cx.save();cx.globalAlpha=p.a;cx.fillStyle=p.col;cx.shadowBlur=10;cx.shadowColor=p.col;
     cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fill();cx.restore();
   }
   requestAnimationFrame(loop);
@@ -546,13 +608,13 @@ pts=Array.from({length:110},()=>mkP(true));
 /* ══ FLOATERS ══ */
 const FE=['❤️','💜','💗','💍','💋','✨','🌸','💘','💝'];
 const fcon=document.getElementById('floaters');
-const _s=document.createElement('style');
-_s.textContent=`@keyframes fUp{from{transform:translateY(0) rotate(0deg);opacity:.5}to{transform:translateY(-110vh) rotate(360deg);opacity:0}}`;
-document.head.appendChild(_s);
+const _ks=document.createElement('style');
+_ks.textContent='@keyframes fUp{from{transform:translateY(0) rotate(0deg);opacity:.5}to{transform:translateY(-110vh) rotate(360deg);opacity:0}}';
+document.head.appendChild(_ks);
 function spawnF(){
   const el=document.createElement('div');
   el.textContent=FE[Math.random()*FE.length|0];
-  el.style.cssText=`position:fixed;left:${Math.random()*100}vw;bottom:-40px;font-size:${Math.random()*16+9}px;pointer-events:none;z-index:3;opacity:.5;animation:fUp ${Math.random()*5+4}s ease-out forwards`;
+  el.style.cssText='position:fixed;left:'+Math.random()*100+'vw;bottom:-40px;font-size:'+(Math.random()*16+9)+'px;pointer-events:none;z-index:3;opacity:.5;animation:fUp '+(Math.random()*5+4)+'s ease-out forwards';
   fcon.appendChild(el);el.addEventListener('animationend',()=>el.remove());
 }
 setInterval(spawnF,550);
@@ -562,72 +624,52 @@ function ripple(btn,e){
   const r=btn.getBoundingClientRect(),rp=document.createElement('span');
   rp.className='ripple';
   const sz=Math.max(r.width,r.height);
-  rp.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-r.left-sz/2}px;top:${e.clientY-r.top-sz/2}px`;
-  btn.appendChild(rp);
-  rp.addEventListener('animationend',()=>rp.remove());
+  rp.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px';
+  btn.appendChild(rp);rp.addEventListener('animationend',()=>rp.remove());
 }
 
 /* ══ BLAST ══ */
 function blast(e){
-  const ox=e.clientX, oy=e.clientY;
-
-  /* 3 expanding rings */
-  const rcols=['#ff2d78','#b400ff','#00f0ff'];
-  rcols.forEach((col,i)=>{
-    const ring=document.createElement('div');
-    ring.className='blast-ring';
-    ring.style.cssText=`left:${ox}px;top:${oy}px;width:20px;height:20px;border:3px solid ${col};animation-delay:${i*0.1}s`;
-    document.body.appendChild(ring);
-    ring.addEventListener('animationend',()=>ring.remove());
+  const ox=e.clientX,oy=e.clientY;
+  const RC=['#ff2d78','#b400ff','#00f0ff'];
+  RC.forEach((col,i)=>{
+    const r=document.createElement('div');r.className='blast-ring';
+    r.style.cssText='left:'+ox+'px;top:'+oy+'px;width:18px;height:18px;border:3px solid '+col+';animation-delay:'+(i*.1)+'s';
+    document.body.appendChild(r);r.addEventListener('animationend',()=>r.remove());
   });
-
-  /* screen flash */
-  const fl=document.createElement('div');
-  fl.className='blast-flash';
-  fl.style.setProperty('--bx',ox+'px');
-  fl.style.setProperty('--by',oy+'px');
-  document.body.appendChild(fl);
-  fl.addEventListener('animationend',()=>fl.remove());
-
-  /* emoji burst — radially outward from click */
-  const ems=['❤️','💜','💗','💋','✨','🌸','💘','💝','🔓','🎉','🥳','💯','🌹','💞'];
-  for(let i=0;i<22;i++){
+  const fl=document.createElement('div');fl.className='blast-flash';
+  fl.style.background='radial-gradient(circle at '+ox+'px '+oy+'px,rgba(255,255,255,.16),rgba(255,45,120,.07) 35%,transparent 65%)';
+  document.body.appendChild(fl);fl.addEventListener('animationend',()=>fl.remove());
+  const EM=['❤️','💜','💗','💋','✨','🌸','💘','💝','🔓','🎉','🥳','💯','🌹','💞','😍','🔥'];
+  for(let i=0;i<24;i++){
     setTimeout(()=>{
-      const el=document.createElement('div');
-      el.className='blast-emoji';
-      el.textContent=ems[Math.random()*ems.length|0];
-      const angle=Math.random()*Math.PI*2, dist=Math.random()*240+90;
-      const sz=Math.random()*18+14;
-      el.style.cssText=`left:${ox}px;top:${oy}px;font-size:${sz}px;--ex:${Math.cos(angle)*dist}px;--ey:${Math.sin(angle)*dist}px;animation-duration:${Math.random()*.7+.8}s;animation-delay:${Math.random()*.15}s`;
-      document.body.appendChild(el);
-      el.addEventListener('animationend',()=>el.remove());
+      const el=document.createElement('div');el.className='blast-emoji';
+      el.textContent=EM[Math.random()*EM.length|0];
+      const a=Math.random()*Math.PI*2,d=Math.random()*240+90;
+      el.style.cssText='left:'+ox+'px;top:'+oy+'px;--ex:'+Math.cos(a)*d+'px;--ey:'+Math.sin(a)*d+'px;animation-duration:'+(Math.random()*.7+.8)+'s;animation-delay:'+(Math.random()*.15)+'s';
+      document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());
     },i*18);
   }
-
-  /* confetti */
   const CC=['#ff2d78','#b400ff','#00f0ff','#ffd700','#ff80ab','#00ff88','#fff'];
   for(let i=0;i<90;i++){
     setTimeout(()=>{
       const el=document.createElement('div');el.className='cp';
-      el.style.cssText=`left:${ox+(Math.random()*120-60)}px;top:${oy}px;background:${CC[Math.random()*CC.length|0]};border-radius:${Math.random()>.5?'50%':'2px'};transform:rotate(${Math.random()*360}deg);animation-duration:${Math.random()*2+1.5}s;animation-delay:${Math.random()*.5}s`;
-      document.body.appendChild(el);
-      el.addEventListener('animationend',()=>el.remove());
+      el.style.cssText='left:'+(ox+(Math.random()*120-60))+'px;top:'+oy+'px;background:'+CC[Math.random()*CC.length|0]+';border-radius:'+(Math.random()>.5?'50%':'2px')+';animation-duration:'+(Math.random()*2+1.5)+'s;animation-delay:'+(Math.random()*.5)+'s';
+      document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());
     },i*18);
   }
 }
 
-/* ══ HEART BURST (scene) ══ */
+/* ══ HEART BURST SCENE ══ */
 function buildBurst(){
   const w=document.getElementById('hburst');w.innerHTML='';
   const H2=['❤️','💜','💗','💋','✨','🌸','💘','💝','🌹'];
   for(let i=0;i<14;i++){
-    const s=document.createElement('span');
-    s.textContent=H2[i%H2.length];
-    const a=(i/14)*Math.PI*2,d=Math.random()*95+50;
-    s.style.setProperty('--tx',`${Math.cos(a)*d}px`);
-    s.style.setProperty('--ty',`${Math.sin(a)*d-60}px`);
-    s.style.animationDelay=`${i*.22}s`;
-    s.style.animationDuration=`${Math.random()+2.4}s`;
+    const s=document.createElement('span');s.textContent=H2[i%H2.length];
+    const a=(i/14)*Math.PI*2,d=Math.random()*90+50;
+    s.style.setProperty('--tx',Math.cos(a)*d+'px');
+    s.style.setProperty('--ty',Math.sin(a)*d-55+'px');
+    s.style.animationDelay=i*.2+'s';s.style.animationDuration=(Math.random()+2.4)+'s';
     w.appendChild(s);
   }
 }
@@ -637,27 +679,26 @@ function waveEl(el){
   const t=el.textContent;
   el.innerHTML=t.split('').map((c,i)=>
     c===' '?'<span style="display:inline-block">&nbsp;</span>':
-    `<span class="wc" style="animation-delay:${i*.065}s">${c}</span>`
+    '<span class="wc" style="animation-delay:'+(i*.065)+'s">'+c+'</span>'
   ).join('');
 }
 
 /* ══ PAGE TRANSITIONS ══ */
 function goPage2(e){
   ripple(document.getElementById('btnCheck'),e);
-  // confetti burst
   const CC=['#ff2d78','#b400ff','#00f0ff','#ffd700','#ff80ab'];
   for(let i=0;i<70;i++){
     setTimeout(()=>{
       const el=document.createElement('div');el.className='cp';
-      el.style.cssText=`left:${Math.random()*100}vw;top:0;background:${CC[Math.random()*CC.length|0]};border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${Math.random()*2+1.5}s;animation-delay:${Math.random()*.4}s`;
+      el.style.cssText='left:'+Math.random()*100+'vw;top:0;background:'+CC[Math.random()*CC.length|0]+';border-radius:'+(Math.random()>.5?'50%':'2px')+';animation-duration:'+(Math.random()*2+1.5)+'s;animation-delay:'+(Math.random()*.4)+'s';
       document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());
     },i*22);
   }
   buildBurst();
   document.getElementById('page1').classList.replace('visible','hidden');
   document.getElementById('page2').classList.replace('hidden','visible');
-  setTimeout(()=>waveEl(document.getElementById('revealBig')),650);
-  resetNameSection();
+  setTimeout(()=>waveEl(document.getElementById('bannerText')),400);
+  resetName();
 }
 
 function goBack(){
@@ -665,65 +706,46 @@ function goBack(){
   document.getElementById('page1').classList.replace('hidden','visible');
 }
 
-/* ══ NAME REVEAL STATE MACHINE ══ */
-function resetNameSection(){
+/* ══ NAME STATE MACHINE ══ */
+function resetName(){
   document.getElementById('bubble1').classList.remove('show');
   document.getElementById('btnBol').style.display='none';
   document.getElementById('munReveal').classList.remove('show');
   document.getElementById('lockIco').textContent='🔒';
-  document.getElementById('btnRevealTxt').textContent='REVEAL GIRL\'S NAME';
-  document.getElementById('btnReveal').style.display='';
+  document.getElementById('btnRevealTxt').textContent="REVEAL GIRL'S NAME";
+  const br=document.getElementById('btnReveal');
+  br.style.display='';
+  br.onclick=function(ev){step1(ev)};
 }
 
-// STEP 1: click "Reveal Girl's Name"
 function step1(e){
   ripple(document.getElementById('btnReveal'),e);
-
   const b1=document.getElementById('bubble1');
-  const btnBol=document.getElementById('btnBol');
-
   b1.classList.add('show');
-  // re-trigger animation
-  b1.style.animation='none';void b1.offsetWidth;
-  b1.style.animation='bubblePop .6s cubic-bezier(.34,1.56,.64,1) both';
-
+  b1.style.animation='none';void b1.offsetWidth;b1.style.animation='bPop .6s cubic-bezier(.34,1.56,.64,1) both';
   document.getElementById('lockIco').textContent='🤫';
   document.getElementById('btnRevealTxt').textContent='HIDE';
-
-  // show "Bol Notir Chele" after short delay
   setTimeout(()=>{
-    btnBol.style.display='inline-flex';
-    btnBol.style.animation='none';void btnBol.offsetWidth;
-    btnBol.style.animation='bubblePop .5s cubic-bezier(.34,1.56,.64,1) both';
-  }, 600);
-
-  // re-bind to hide on second click
+    const bb=document.getElementById('btnBol');
+    bb.style.display='inline-flex';
+    bb.style.animation='none';void bb.offsetWidth;bb.style.animation='bPop .5s cubic-bezier(.34,1.56,.64,1) both';
+  },500);
   document.getElementById('btnReveal').onclick=function(ev){
-    ripple(this,ev);
-    resetNameSection();
-    this.onclick=function(e2){step1(e2)};
+    ripple(this,ev);resetName();
   };
 }
 
-// STEP 2: click "Bol Notir Chele"
 function step2(e){
   blast(e);
   ripple(document.getElementById('btnBol'),e);
-
-  // hide the "bol" button
   document.getElementById('btnBol').style.display='none';
-  // hide main reveal btn
   document.getElementById('btnReveal').style.display='none';
-  // hide bubble1
   document.getElementById('bubble1').classList.remove('show');
-
-  // show mun with delay for blast to play first
   setTimeout(()=>{
     const mr=document.getElementById('munReveal');
     mr.classList.add('show');
-    mr.style.animation='none';void mr.offsetWidth;
-    mr.style.animation='munIn .8s cubic-bezier(.34,1.56,.64,1) both';
-  },300);
+    mr.style.animation='none';void mr.offsetWidth;mr.style.animation='munIn .8s cubic-bezier(.34,1.56,.64,1) both';
+  },320);
 }
 </script>
 </body>
